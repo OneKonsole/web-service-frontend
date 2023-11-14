@@ -1,6 +1,6 @@
 import React from "react"
 
-function App() {
+const login: React.FC = () => {
     return (
         <>
             <h1>Login</h1>
@@ -8,4 +8,4 @@ function App() {
     )
 }
 
-export default App;
+export default login;
