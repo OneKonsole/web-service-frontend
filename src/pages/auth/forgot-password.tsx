@@ -1,19 +1,18 @@
 import React from "react";
-import {Link} from 'react-router-dom';
 import FormContainer from "@components/form/FormContainer.tsx";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
 
 /**
- * Login component is used to render the login page
+ * ForgotPassword component is used to render the forgot password page
  * @constructor React.FC
  */
-const Login: React.FC = () => {
+const ForgotPassword: React.FC = () => {
     const actionSection = (
         <React.Fragment>
             <div className="flex items-center justify-center">
-                <Button text="Login" borderColor="border-blue" hoverColor="hover:border-blue-light"
+                <Button text="Login" borderColor="border-transparent" hoverColor="hover:border-transparent"
                         to="/auth/login"/>
                 <div className="text-gray-dark text-xl">|</div>
                 <Button text="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
@@ -24,19 +23,16 @@ const Login: React.FC = () => {
 
     const formFields = (
         <React.Fragment>
-            <InputField label="Username" id="username" type="text" placeholder="Username"/>
-            <InputField label="Password" id="password" type="password" placeholder="******************"/>
-            <div className="flex items-center justify-center">
-                <Link to={"/auth/forgot-password"}
-                      className="inline-block align-baselinetext-sm text-blue hover:text-blue-light mb-4">
-                    Forgot Password?
-                </Link>
+            <InputField label="Email" id="email" type="email" placeholder="Email"/>
+            <div className="flex items-center justify-center mb-4">
+                <Button text="Submit" borderColor="border-blue" hoverColor="hover:border-blue-light"
+                        to="/auth/login"/>
             </div>
         </React.Fragment>
     );
 
     const formContent = (
-        <FormContainer title="Login" actionSection={actionSection}>
+        <FormContainer title="Forgot Password" actionSection={actionSection}>
             <form>
                 {formFields}
             </form>
@@ -54,4 +50,4 @@ const Login: React.FC = () => {
     return <VerticalPageLayout leftComponent={formContent} rightComponent={rightSideContent}/>;
 };
 
-export default Login;
+export default ForgotPassword;
