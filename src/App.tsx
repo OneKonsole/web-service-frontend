@@ -1,21 +1,16 @@
-import React, {Suspense} from "react";
-import SideBar from "./components/SideBar.tsx";
+import {Suspense} from "react";
 import {useRoutes} from "react-router-dom";
-import routes from "~react-pages";
 
+import routes from '~react-pages';
 
-const App: React.FC = () => {
+const App = () => {
+    const elements = useRoutes(routes);
+
     return (
-        <div className="flex">
-            <SideBar/>
-            <div className="flex-1">
-                <Suspense fallback={
-                    <div>Loading...</div>
-                }>
-                    {useRoutes(routes)}
-                </Suspense>
-            </div>
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+            {elements}
+        </Suspense>
     );
-}
+};
+
 export default App;
