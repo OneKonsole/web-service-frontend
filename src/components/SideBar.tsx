@@ -1,6 +1,17 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
+import accountIcon from "@assets/icons/account.svg";
+import billingIcon from "@assets/icons/billing.svg";
+import clusterIcon from "@assets/icons/cluster.svg";
+import downloadIcon from "@assets/icons/download.svg";
+import logoutIcon from "@assets/icons/logout.svg";
+import monitorIcon from "@assets/icons/monitor.svg";
+import orderIcon from "@assets/icons/order.svg";
+
+import logofull from "@assets/logos/logo-full.svg";
+import logoshort from "@assets/logos/logo-short.svg";
+
 type MenuItemProps = {
     link: string,
     imgSrc: string,
@@ -22,7 +33,7 @@ type MenuItemProps = {
 const MenuItem: React.FC<MenuItemProps> = ({link, imgSrc, imgAlt, text, bonusClass, collapsed}) => {
     return (
         <Link to={link}
-            className={`flex items-center rounded-md hover:bg-blue-light transition-all duration-500 py-4 ${bonusClass} ${collapsed ? "justify-center" : "px-5 space-x-2"}`}>
+              className={`flex items-center rounded-md hover:bg-blue-light transition-all duration-500 py-4 ${bonusClass} ${collapsed ? "justify-center" : "px-5 space-x-2"}`}>
 
             <img
                 src={imgSrc}
@@ -52,32 +63,32 @@ const SideBar: React.FC = () => {
     const sidebarClass = collapsed ? "w-16" : "w-64";
 
     const midMenuItems = [
-        {link: "/menus/monitor", imgSrc: "/src/icons/monitor.svg", imgAlt: "Monitor", text: "Monitor"},
-        {link: "/menus/clusters", imgSrc: "/src/icons/cluster.svg", imgAlt: "Cluster", text: "Cluster"},
-        {link: "/menus/billing", imgSrc: "/src/icons/billing.svg", imgAlt: "Billing", text: "Billing"},
-        {link: "/menus/download", imgSrc: "/src/icons/download.svg", imgAlt: "Download", text: "Download"},
-        {link: "/menus/order", imgSrc: "/src/icons/order.svg", imgAlt: "Order", text: "Order"}
+        {link: "/menus/monitor", imgSrc: monitorIcon, imgAlt: "Monitor", text: "Monitor"},
+        {link: "/menus/clusters", imgSrc: clusterIcon, imgAlt: "Cluster", text: "Cluster"},
+        {link: "/menus/billing", imgSrc: billingIcon, imgAlt: "Billing", text: "Billing"},
+        {link: "/menus/download", imgSrc: downloadIcon, imgAlt: "Download", text: "Download"},
+        {link: "/menus/order", imgSrc: orderIcon, imgAlt: "Order", text: "Order"}
     ];
 
     const bottomMenuItems = [
-        {link: "/menus/account", imgSrc: "/src/icons/account.svg", imgAlt: "Account", text: "Account"},
-        {link: "/auth/logout", imgSrc: "/src/icons/logout.svg", imgAlt: "Logout", text: "Logout"}
+        {link: "/menus/account", imgSrc: accountIcon, imgAlt: "Account", text: "Account"},
+        {link: "/auth/logout", imgSrc: logoutIcon, imgAlt: "Logout", text: "Logout"}
     ];
 
     return (
         <aside
             className={`bg-blue text-white space-y-6 pt-7 pb-2 px-2 h-screen relative flex justify-between flex-col transition-all duration-500 ease-in-out ${sidebarClass}`}>
 
-            <Link to={"/monitor"}
+            <Link to={"/menus/monitor"}
                   className="text-white flex px-1 items-center absolute transition-opacity duration-500"
                   onClick={toggleSidebar}>
                 <img
-                    src="/src/icons/logos/logo-full.svg"
+                    src={logofull}
                     alt="OneKonsole"
                     className={`transition-opacity duration-500 ${collapsed ? 'opacity-0' : 'opacity-100'}`}>
                 </img>
                 <img
-                    src="/src/icons/logos/logo-short.svg"
+                    src={logoshort}
                     alt="OneKonsole"
                     className={`absolute transition-opacity duration-500 ${collapsed ? 'opacity-100' : 'opacity-0'}`}>
                 </img>

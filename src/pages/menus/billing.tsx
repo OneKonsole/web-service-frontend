@@ -1,8 +1,11 @@
 import React from "react";
+import PanelLayout from "@components/layout/PanelLayout.tsx";
 
 const Billing: React.FC = () => {
     return (
-        <h1> Billing Page </h1>
+        <PanelLayout>
+            <h1> Billing Page </h1>
+        </PanelLayout>
     );
 }
 

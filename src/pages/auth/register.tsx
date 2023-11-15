@@ -1,22 +1,22 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+
 import FormContainer from "@components/form/FormContainer.tsx";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
 
 /**
- * Login component is used to render the login page
+ * Register component is used to render the register page
  * @constructor React.FC
  */
-const Login: React.FC = () => {
+const Register: React.FC = () => {
     const actionSection = (
         <React.Fragment>
             <div className="flex items-center justify-center">
-                <Button text="Login" borderColor="border-blue" hoverColor="hover:border-blue-light"
+                <Button text="Login" borderColor="border-transparent" hoverColor="hover:border-transparent"
                         to="/auth/login"/>
                 <div className="text-gray-dark text-xl">|</div>
-                <Button text="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
+                <Button text="Register" borderColor="border-blue" hoverColor="hover:border-blue-light"
                         to="/auth/register"/>
             </div>
         </React.Fragment>
@@ -24,19 +24,15 @@ const Login: React.FC = () => {
 
     const formFields = (
         <React.Fragment>
-            <InputField label="Username" id="username" type="text" placeholder="Username"/>
+            <InputField label="Email" id="email" type="email" placeholder="Email"/>
             <InputField label="Password" id="password" type="password" placeholder="******************"/>
-            <div className="flex items-center justify-center">
-                <Link to={"/auth/forgot-password"}
-                      className="inline-block align-baselinetext-sm text-blue hover:text-blue-light mb-4">
-                    Forgot Password?
-                </Link>
-            </div>
+            <InputField label="Repeat Password" id="repeat-password" type="password"
+                        placeholder="******************"/>
         </React.Fragment>
     );
 
     const formContent = (
-        <FormContainer title="Login" actionSection={actionSection}>
+        <FormContainer title="Register" actionSection={actionSection}>
             <form>
                 {formFields}
             </form>
@@ -54,4 +50,4 @@ const Login: React.FC = () => {
     return <VerticalPageLayout leftComponent={formContent} rightComponent={rightSideContent}/>;
 };
 
-export default Login;
+export default Register;
