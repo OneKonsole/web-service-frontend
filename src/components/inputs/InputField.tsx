@@ -16,6 +16,7 @@ type Props = {
     placeholder: string;
     options?: Option[];
     customClass?: string;
+    setValue?: (value: string) => void;
 }
 
 /**
@@ -24,9 +25,11 @@ type Props = {
  * @param id the id of the input field
  * @param type the type of the input field
  * @param placeholder the placeholder of the input field
+ * @param options the options of the input field
+ * @param customClass the custom class of the input field
  * @constructor React.FC<Props>
  */
-const InputField: React.FC<Props> = ({label, id, type, placeholder, options, customClass}: Props) => {
+const InputField: React.FC<Props> = ({label, id, type, placeholder, options, customClass, setValue}: Props) => {
 
     if (type === InputType.select) {
         return (
@@ -67,6 +70,11 @@ const InputField: React.FC<Props> = ({label, id, type, placeholder, options, cus
                 id={id}
                 type={type}
                 placeholder={placeholder}
+                onChange={(event) => {
+                    if (setValue) {
+                        setValue(event.target.value)
+                    }
+                }}
             />
         </div>
     )

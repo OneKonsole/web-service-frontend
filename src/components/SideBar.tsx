@@ -66,8 +66,8 @@ const SideBar: React.FC = () => {
         {link: "/menus/monitor", imgSrc: monitorIcon, imgAlt: "Monitor", text: "Monitor"},
         {link: "/menus/clusters", imgSrc: clusterIcon, imgAlt: "Cluster", text: "Cluster"},
         {link: "/menus/billing", imgSrc: billingIcon, imgAlt: "Billing", text: "Billing"},
-        {link: "/menus/download", imgSrc: downloadIcon, imgAlt: "Download", text: "Download"},
-        {link: "/menus/order", imgSrc: orderIcon, imgAlt: "Order", text: "Order"}
+        {link: "/download", imgSrc: downloadIcon, imgAlt: "Download", text: "Download"},
+        {link: "/order", imgSrc: orderIcon, imgAlt: "Order", text: "Order"}
     ];
 
     const bottomMenuItems = [
@@ -77,25 +77,23 @@ const SideBar: React.FC = () => {
 
     return (
         <aside
-            className={`bg-blue text-white space-y-6 pt-7 pb-2 px-2 h-screen relative flex justify-between flex-col transition-all duration-500 ease-in-out ${sidebarClass}`}>
+            className={`bg-blue text-white space-y-6 pt-7 pb-2 px-2 h-auto relative flex justify-between flex-col transition-all duration-500 ease-in-out ${sidebarClass}`}>
 
-            <Link to={"/menus/monitor"}
-                  className="text-white flex px-1 items-center absolute transition-opacity duration-500"
-                  onClick={toggleSidebar}>
+            <div className="text-white flex px-1 items-center absolute transition-opacity duration-500">
                 <img
                     src={logofull}
                     alt="OneKonsole"
-                    className={`transition-opacity duration-500 ${collapsed ? 'opacity-0' : 'opacity-100'}`}>
+                    className={`transition-opacity duration-500 ${collapsed ? 'opacity-0' : 'opacity-100'}`}
+                    onClick={toggleSidebar}>
                 </img>
                 <img
                     src={logoshort}
                     alt="OneKonsole"
-                    className={`absolute transition-opacity duration-500 ${collapsed ? 'opacity-100' : 'opacity-0'}`}>
+                    className={`absolute transition-opacity duration-500 ${collapsed ? 'opacity-100' : 'opacity-0'}`}
+                    onClick={toggleSidebar}>
                 </img>
-
-                <hr className={""}></hr>
-
-            </Link>
+                <hr/>
+            </div>
 
             <nav>
                 <hr className={"mt-7 mb-2 opacity-20"}></hr>
