@@ -71,7 +71,7 @@ const SideBar: React.FC = () => {
     ];
 
     const bottomMenuItems = [
-        {link: "/menus/account", imgSrc: accountIcon, imgAlt: "Account", text: "Account"},
+        {link: "/account", imgSrc: accountIcon, imgAlt: "Account", text: "Account"},
         {link: "/auth/logout", imgSrc: logoutIcon, imgAlt: "Logout", text: "Logout"}
     ];
 

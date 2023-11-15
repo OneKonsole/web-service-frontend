@@ -12,8 +12,9 @@ import React from "react";
 type Props = {
     to: string;
     text: string;
-    borderColor: string;
-    hoverColor: string;
+    borderColor: string | null | undefined;
+    hoverColor: string | null | undefined;
+    customClass?: string;
 }
 
 /**
@@ -22,12 +23,17 @@ type Props = {
  * @param text the text to be displayed
  * @param borderColor the border color of the button
  * @param hoverColor the hover color of the button
+ * @param customClass
  * @constructor React.FC<Props>
  */
-const Button: React.FC<Props> = ({to, text, borderColor, hoverColor}: Props) => (
+const Button: React.FC<Props> = ({to, text, borderColor, hoverColor, customClass}: Props) => (
     <Link to={to}>
         <button
-            className={`text-gray-dark py-2 px-4 mr-4 border-b-2 ${borderColor} ${hoverColor}`}
+            {
+                ...customClass ? {className: customClass} : {
+                    className: `text-gray-dark py-2 px-4 mr-4 border-b-2 ${borderColor} ${hoverColor}`
+                }
+            }
             type="submit"
         >
             {text}
