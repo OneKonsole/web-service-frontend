@@ -14,6 +14,15 @@ export enum InputType {
     select = "select",
 }
 
+export enum SchemaIconType {
+    api = "api",
+    cm = "ConfigMap",
+    scheduler = "scheduler",
+    etcd = "etcd",
+    graphLoki = "graphLoki",
+    prometheus = "prometheus",
+}
+
 export type Option = {
     value: string;
     text: string;
