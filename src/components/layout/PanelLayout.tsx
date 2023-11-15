@@ -17,7 +17,7 @@ type Props = {
 const PanelLayout: React.FC<Props> = ({children}: Props) => {
     return (
         <>
-            <div className="flex">
+            <div className="flex h-screen">
                 <SideBar/>
                 <div className="flex-1">
                     {children}
