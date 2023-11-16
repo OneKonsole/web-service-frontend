@@ -11,10 +11,11 @@ import React from "react";
  */
 type Props = {
     to: string;
-    text: string;
+    content: string | JSX.Element;
     borderColor: string | null | undefined;
     hoverColor: string | null | undefined;
     customClass?: string;
+    onClick?: () => void;
 }
 
 /**
@@ -26,7 +27,7 @@ type Props = {
  * @param customClass
  * @constructor React.FC<Props>
  */
-const Button: React.FC<Props> = ({to, text, borderColor, hoverColor, customClass}: Props) => (
+const Button: React.FC<Props> = ({to, content, borderColor, hoverColor, customClass, onClick}: Props) => (
     <Link to={to}>
         <button
             {
@@ -34,9 +35,10 @@ const Button: React.FC<Props> = ({to, text, borderColor, hoverColor, customClass
                     className: `text-gray-dark py-2 px-4 mr-4 border-b-2 ${borderColor} ${hoverColor}`
                 }
             }
+            onClick={onClick}
             type="submit"
         >
-            {text}
+            {content}
         </button>
     </Link>
 );
