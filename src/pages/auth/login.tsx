@@ -4,6 +4,7 @@ import FormContainer from "@components/form/FormContainer.tsx";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
+import {InputType} from "@/type.ts";
 
 /**
  * Login component is used to render the login page
@@ -13,10 +14,10 @@ const Login: React.FC = () => {
     const actionSection = (
         <React.Fragment>
             <div className="flex items-center justify-center">
-                <Button text="Login" borderColor="border-blue" hoverColor="hover:border-blue-light"
+                <Button content="Login" borderColor="border-blue" hoverColor="hover:border-blue-light"
                         to="/auth/login"/>
                 <div className="text-gray-dark text-xl">|</div>
-                <Button text="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
+                <Button content="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
                         to="/auth/register"/>
             </div>
         </React.Fragment>
@@ -24,8 +25,8 @@ const Login: React.FC = () => {
 
     const formFields = (
         <React.Fragment>
-            <InputField label="Username" id="username" type="text" placeholder="Username"/>
-            <InputField label="Password" id="password" type="password" placeholder="******************"/>
+            <InputField label="Username" id="username" type={InputType.text} placeholder="Username"/>
+            <InputField label="Password" id="password" type={InputType.password} placeholder="******************"/>
             <div className="flex items-center justify-center">
                 <Link to={"/auth/forgot-password"}
                       className="inline-block align-baselinetext-sm text-blue hover:text-blue-light mb-4">
