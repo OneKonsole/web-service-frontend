@@ -3,6 +3,7 @@ import FormContainer from "@components/form/FormContainer.tsx";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
+import {InputType} from "@/type.ts";
 
 /**
  * ForgotPassword component is used to render the forgot password page
@@ -12,10 +13,10 @@ const ForgotPassword: React.FC = () => {
     const actionSection = (
         <React.Fragment>
             <div className="flex items-center justify-center">
-                <Button text="Login" borderColor="border-transparent" hoverColor="hover:border-transparent"
+                <Button content="Login" borderColor="border-transparent" hoverColor="hover:border-transparent"
                         to="/auth/login"/>
                 <div className="text-gray-dark text-xl">|</div>
-                <Button text="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
+                <Button content="Register" borderColor="border-transparent" hoverColor="hover:border-transparent"
                         to="/auth/register"/>
             </div>
         </React.Fragment>
@@ -23,9 +24,9 @@ const ForgotPassword: React.FC = () => {
 
     const formFields = (
         <React.Fragment>
-            <InputField label="Email" id="email" type="email" placeholder="Email"/>
+            <InputField label="Email" id="email" type={InputType.email} placeholder="Email"/>
             <div className="flex items-center justify-center mb-4">
-                <Button text="Submit" borderColor="border-blue" hoverColor="hover:border-blue-light"
+                <Button content="Submit" borderColor="border-blue" hoverColor="hover:border-blue-light"
                         to="/auth/login"/>
             </div>
         </React.Fragment>

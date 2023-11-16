@@ -52,14 +52,14 @@ const Account: React.FC = () => {
                     </div>
                     <div className="flex justify-center items-center">
                         <Button
-                            text="Cancel"
+                            content="Cancel"
                             customClass="text-gray-dark py-2 px-4 mr-4 rounded-md border border-gray hover:border-blue hover:text-blue"
                             borderColor={null}
                             hoverColor={null}
                             to={""}
                         />
                         <Button
-                            text="Save"
+                            content="Save"
                             customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
                             to={""}
                             borderColor={null}
@@ -212,14 +212,14 @@ const Account: React.FC = () => {
                 <hr className="mx-2 my-2 border-gray"/>
                 <div className="flex justify-end items-center">
                     <Button
-                        text="Cancel"
+                        content="Cancel"
                         customClass="text-gray-dark py-2 px-4 mr-4 rounded-md border border-gray hover:border-blue hover:text-blue"
                         borderColor={null}
                         hoverColor={null}
                         to={""}
                     />
                     <Button
-                        text="Save"
+                        content="Save"
                         customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
                         to={""}
                         borderColor={null}
