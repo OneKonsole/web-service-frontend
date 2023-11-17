@@ -56,21 +56,21 @@ const InfraSchema: React.FC<InfraSchemaProps> = (
 
     return (
         <div className="flex flex-col justify-center p-5">
-            <label className={"text-xl font-bold text-center py-5"}>
+            <label className="text-xl font-bold text-center py-5">
                 Your Infrastructure
             </label>
             <div className="p-10">
                 <div className="rounded-3xl text-center border-dark border-2 pt-2">
-                    <p className={"mb-2"}>Your tenant</p>
+                    <p className="mb-2">Your tenant</p>
                     <hr/>
-                    <div className={"flex justify-center flex-wrap p-5"}>
+                    <div className="flex justify-center flex-wrap p-5">
                         {kubeIcons.map(icon => (
                             [...Array(icon.instances)].map((_, i) => (
                                 <img key={icon.iconType + i} src={icon.src} alt={icon.iconType} className={iconClass}/>
                             ))
                         ))}
                     </div>
-                    <div className={"flex flex-wrap justify-center p-5"}>
+                    <div className="flex flex-wrap justify-center p-5">
                         {toolsIcons.map(icon => (
                             [...Array(icon.instances)].map((_, i) => (
                                 <img key={icon.iconType + i} src={icon.src} alt={icon.iconType} className={iconClass}/>
@@ -79,7 +79,7 @@ const InfraSchema: React.FC<InfraSchemaProps> = (
                     </div>
                 </div>
 
-                <div className={"flex justify-center mx-auto mt-10"}>
+                <div className="flex justify-center mx-auto mt-10">
                     {externIcons.map(icon => (
                         [...Array(icon.instances)].map((_, i) => (
                             <img key={icon.iconType + i} src={icon.src} alt={icon.iconType} className={iconClass}/>

@@ -1,3 +1,84 @@
+// ----- User -----
+
+export type UserInfo = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone?: string;
+    company?: string;
+    address?: PostalAddress;
+    billingInfo?: BillingInfo;
+}
+
+export type PostalAddress = {
+    name: string;
+    country: string;
+    city: string;
+    street: string;
+    zipCode: string;
+}
+
+
+// ----- Billing -----
+
+export enum AcceptedCurrency {
+    USD = '$',
+    EUR = '€',
+}
+
+export type BillingInfo = {
+    onGoingInfo?: OnGoingInfo;
+    payPalInfo: PayPalInfo;
+    cardInfo: CardInfo;
+    paymentInstances?: PaymentInstance[];
+}
+
+export type FixedPrices = {
+    minimum: number;
+    alertingOption: number;
+    logUnitPrice: number;
+    storageUnitPrice: number;
+}
+
+export type PaymentInstance = {
+    status: 'Paid' | 'Pending' | 'Failed';
+    invoiceDetails: InvoiceDetails;
+}
+
+export type InvoiceDetails = {
+    invoiceId: string;
+    amount: number;
+    currency: AcceptedCurrency;
+    recipient: string;
+    paymentMethod: 'PayPal' | 'CreditCard';
+    invoiceDate: Date;
+    paidDate: Date;
+    logQuantity: number;
+    storageCapacity: number;
+}
+
+export type PayPalInfo = {
+    email: string;
+}
+
+export type CardInfo = {
+    holderName: string;
+    cardType: string;
+    cardNumber: string;
+    expDate: Date;
+    cvv: string;
+}
+
+export type OnGoingInfo = {
+    currency: AcceptedCurrency;
+    actualPrice: number;
+    nextEstimatedPrice: number;
+    startDate: Date;
+    endDate: Date;
+}
+
+// ----- Components -----
+
 export enum InputType {
     text = "text",
     password = "password",
@@ -14,6 +95,13 @@ export enum InputType {
     select = "select",
 }
 
+export type Option = {
+    value: string;
+    text: string;
+}
+
+// ----- Icons -----
+
 export enum SchemaIconType {
     api = "api",
     cm = "ConfigMap",
@@ -21,9 +109,4 @@ export enum SchemaIconType {
     etcd = "etcd",
     graphLoki = "graphLoki",
     prometheus = "prometheus",
-}
-
-export type Option = {
-    value: string;
-    text: string;
 }

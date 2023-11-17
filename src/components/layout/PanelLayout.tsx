@@ -19,7 +19,7 @@ const PanelLayout: React.FC<Props> = ({children}: Props) => {
         <>
             <div className="flex h-screen">
                 <SideBar/>
-                <div className="flex-1">
+                <div className="flex-1 overflow-auto">
                     {children}
                 </div>
             </div>
