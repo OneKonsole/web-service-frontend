@@ -28,7 +28,7 @@ const Login: React.FC = () => {
             <InputField label="Username" id="username" type={InputType.text} placeholder="Username"/>
             <InputField label="Password" id="password" type={InputType.password} placeholder="******************"/>
             <div className="flex items-center justify-center">
-                <Link to={"/auth/forgot-password"}
+                <Link to="/auth/forgot-password"
                       className="inline-block align-baselinetext-sm text-blue hover:text-blue-light mb-4">
                     Forgot Password?
                 </Link>
