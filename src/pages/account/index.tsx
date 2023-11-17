@@ -54,16 +54,12 @@ const Account: React.FC = () => {
                         <Button
                             content="Cancel"
                             customClass="text-gray-dark py-2 px-4 mr-4 rounded-md border border-gray hover:border-blue hover:text-blue"
-                            borderColor={null}
-                            hoverColor={null}
-                            to={""}
+                            to=''
                         />
                         <Button
                             content="Save"
                             customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
-                            to={""}
-                            borderColor={null}
-                            hoverColor={null}
+                            to=''
                         />
                     </div>
                 </div>
@@ -120,7 +116,8 @@ const Account: React.FC = () => {
                             accept="image/svg+xml, image/png, image/jpeg"
                             id="file-upload"
                         />
-                        <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
+                        <label htmlFor="file-upload"
+                               className="flex flex-col items-center justify-center cursor-pointer">
                             <img src="https://placehold.co/400x400" alt="Profile" className="rounded-full h-12 w-12"/>
                             <p className="text-sm text-gray text-center mt-4">
                                 <span className="text-blue hover:underline">
@@ -161,16 +158,16 @@ const Account: React.FC = () => {
                             id="country"
                             type={InputType.select}
                             options={[
-                                {value: "France", text: "France"},
-                                {value: "Germany", text: "Germany"},
-                                {value: "United Kingdom", text: "United Kingdom"},
-                                {value: "United States", text: "United States"},
-                                {value: "Canada", text: "Canada"},
-                                {value: "Australia", text: "Australia"},
-                                {value: "Japan", text: "Japan"},
-                                {value: "China", text: "China"},
-                                {value: "India", text: "India"},
-                                {value: "Russia", text: "Russia"}
+                                {value: 'France', text: 'France'},
+                                {value: 'Germany', text: 'Germany'},
+                                {value: 'United Kingdom', text: '"United Kingdom'},
+                                {value: 'United States', text: '"United States'},
+                                {value: 'Canada', text: 'Canada'},
+                                {value: 'Australia', text: 'Australia'},
+                                {value: 'Japan', text: 'Japan'},
+                                {value: 'China', text: 'China'},
+                                {value: 'India', text: 'India'},
+                                {value: 'Russia', text: 'Russia'}
                             ] as Option[]}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Country"
@@ -190,18 +187,18 @@ const Account: React.FC = () => {
                             id="role"
                             type={InputType.select}
                             options={[
-                                {value: "GMT+1", text: "GMT+1"},
-                                {value: "GMT+2", text: "GMT+2"},
-                                {value: "GMT+3", text: "GMT+3"},
-                                {value: "GMT+4", text: "GMT+4"},
-                                {value: "GMT+5", text: "GMT+5"},
-                                {value: "GMT+6", text: "GMT+6"},
-                                {value: "GMT+7", text: "GMT+7"},
-                                {value: "GMT+8", text: "GMT+8"},
-                                {value: "GMT+9", text: "GMT+9"},
-                                {value: "GMT+10", text: "GMT+10"},
-                                {value: "GMT+11", text: "GMT+11"},
-                                {value: "GMT+12", text: "GMT+12"},
+                                {value: 'GMT+1', text: 'GMT+1'},
+                                {value: 'GMT+2', text: 'GMT+2'},
+                                {value: 'GMT+3', text: 'GMT+3'},
+                                {value: 'GMT+4', text: 'GMT+4'},
+                                {value: 'GMT+5', text: 'GMT+5'},
+                                {value: 'GMT+6', text: 'GMT+6'},
+                                {value: 'GMT+7', text: 'GMT+7'},
+                                {value: 'GMT+8', text: 'GMT+8'},
+                                {value: 'GMT+9', text: 'GMT+9'},
+                                {value: 'GMT+10', text: 'GMT+10'},
+                                {value: 'GMT+11', text: 'GMT+11'},
+                                {value: 'GMT+12', text: 'GMT+12'},
                             ] as Option[]}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Product Owner, Cloud Architect..."
@@ -214,16 +211,12 @@ const Account: React.FC = () => {
                     <Button
                         content="Cancel"
                         customClass="text-gray-dark py-2 px-4 mr-4 rounded-md border border-gray hover:border-blue hover:text-blue"
-                        borderColor={null}
-                        hoverColor={null}
-                        to={""}
+                        to=''
                     />
                     <Button
                         content="Save"
                         customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
-                        to={""}
-                        borderColor={null}
-                        hoverColor={null}
+                        to=''
                     />
                 </div>
             </div>

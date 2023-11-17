@@ -70,53 +70,53 @@ const Order: React.FC = () => {
     return (
         <PanelLayout>
             <div className="flex h-screen">
-                <div className="flex bg-light-gray w-1/3 flex-col rounded-r-3xl p-5">
-                    <p className={"text-lg font-bold text-center my-7"}>
+                <div className="flex bg-gray-light w-1/3 flex-col rounded-r-3xl p-5">
+                    <p className="text-lg font-bold text-center my-7">
                         Choose your options
                     </p>
 
                     <InputField
-                        label={"Your cluster Name"}
-                        id={"clusterNameInput"}
+                        label="Your cluster Name"
+                        id="clusterNameInput"
                         type={InputType.text}
-                        placeholder={"Cluster name"}
+                        placeholder="Cluster name"
                         setValue={setClusterName}
                     />
 
                     <ToggleSwitch
-                        id={"controlPlaneSwitch"}
-                        label={"Control Plane"}
-                        description={"Allows you to view and interpret your data"}
+                        id="controlPlaneSwitch"
+                        label="Control Plane"
+                        description="Allows you to view and interpret your data"
                         checked={ctrlPlaneChecked}
                         disabled={ctrlPlaneDisabled}
-                        customParentClass={"my-5"}
+                        customParentClass="my-5"
                         onChange={(checked: boolean) => {
                             handleSwitch(checked, monitoringChecked)
                         }}
                     />
 
-                    <div className={"my-5"}>
+                    <div className="my-5">
                         <label className="block text-gray-dark text-md font-bold mb-5">
                             Nodes
                         </label>
                         <div className="ml-5">
 
                             <ToggleSwitch
-                                id={"MonitoringSwitch"}
-                                label={"Monitoring"}
-                                description={"Allows you to view and interpret your data"}
+                                id="MonitoringSwitch"
+                                label="Monitoring"
+                                description="Allows you to view and interpret your data"
                                 checked={monitoringChecked}
                                 disabled={monitoringDisabled}
-                                customParentClass={"my-5"}
+                                customParentClass="my-5"
                                 onChange={(checked: boolean) => {
                                     handleSwitch(ctrlPlaneChecked, checked)
                                 }}
                             />
 
                             <RangeSlider
-                                id={"StorageSlider"}
-                                label={"Storage"}
-                                valueUnit={"Go"}
+                                id="StorageSlider"
+                                label="Storage"
+                                valueUnit="Go"
                                 min={storageLim.min}
                                 max={storageLim.max}
                                 value={storageValue}
@@ -126,9 +126,9 @@ const Order: React.FC = () => {
                     </div>
 
                     <ToggleSwitch
-                        id={"AlertingSwitch"}
-                        label={"Alerting"}
-                        description={"Allow you to have alerts when something goes wrong"}
+                        id="AlertingSwitch"
+                        label="Alerting"
+                        description="Allow you to have alerts when something goes wrong"
                         checked={alertingChecked}
                         onChange={setAlertingChecked}
                     />
@@ -138,7 +138,7 @@ const Order: React.FC = () => {
                     <div className="flex justify-center mb-7">
 
                         <Button
-                            to={"/billing"}
+                            to="/billing"
                             content={
                                 <div className="flex items-center">
                                     <label>Next step</label>
