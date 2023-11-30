@@ -52,10 +52,9 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
     }, [isToggled]);
 
     return (
-        <div className={`flex flex-col`}>
+        <div className={`flex flex-col`} key={index}>
             <div
-                className={`grid grid-cols-9 items-center justify-center text-center py-2 ${isToggled ? 'bg-blue-light rounded-t-xl' : 'bg-white border-[1px] border-gray rounded-xl mb-4'}`}
-                key={index}>
+                className={`grid grid-cols-9 items-center justify-center text-center py-2 ${isToggled ? 'bg-blue-light rounded-t-xl' : 'bg-white border-[1px] border-gray rounded-xl mb-4'}`}>
 
                 <label className={`col-span-1 text-sm text-${textColor}`}>
                     {paymentInstance.invoiceDetails.currency} {paymentInstance.invoiceDetails.amount.toFixed(2)}
