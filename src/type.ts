@@ -6,13 +6,13 @@ export type UserInfo = {
     email: string;
     phone?: string;
     company?: string;
-    address?: PostalAddress;
     billingInfo?: BillingInfo;
 }
 
 export type PostalAddress = {
     name: string;
     country: string;
+    stateRegion?: string;
     city: string;
     street: string;
     zipCode: string;
@@ -27,9 +27,10 @@ export enum AcceptedCurrency {
 }
 
 export type BillingInfo = {
+    address?: PostalAddress;
     onGoingInfo?: OnGoingInfo;
-    payPalInfo: PayPalInfo;
-    cardInfo: CardInfo;
+    payPalInfo?: PayPalInfo;
+    cardInfo?: CardInfo;
     paymentInstances?: PaymentInstance[];
 }
 

@@ -50,6 +50,7 @@ const PaymentHistory: React.FC<Props> = ({PaymentHistory}: Props) => {
             ) : (
                 PaymentHistory.map((payment, index) => (
                     <PaymentHistoryInstance
+                        key={payment.invoiceDetails.invoiceId}
                         index={index}
                         paymentInstance={payment}
                     />
