@@ -15,7 +15,10 @@ type Props = {
     type: InputType;
     placeholder: string;
     options?: Option[];
+    disableFirstOption?: boolean;
+    parentCustomClass?: string;
     customClass?: string;
+    value?: string;
     setValue?: (value: string) => void;
 }
 
@@ -26,28 +29,52 @@ type Props = {
  * @param type the type of the input field
  * @param placeholder the placeholder of the input field
  * @param options the options of the input field
+ * @param disableFirstOption the option to disable the first option of the input field
+ * @param parentCustomClass the custom class of the parent div
  * @param customClass the custom class of the input field
+ * @param setValue the function to set the value of the input field
+ * @param value the value of the input field
  * @constructor React.FC<Props>
  */
-const InputField: React.FC<Props> = ({label, id, type, placeholder, options, customClass, setValue}: Props) => {
+const InputField: React.FC<Props> = ({
+                                         label,
+                                         id,
+                                         type,
+                                         placeholder,
+                                         options,
+                                         disableFirstOption,
+                                         parentCustomClass,
+                                         customClass,
+                                         setValue,
+                                         value
+                                     }: Props) => {
 
     if (type === InputType.select) {
+
         return (
-            <div className="mb-4">
+            <div className={parentCustomClass ? parentCustomClass : 'mb-4 w-full'}>
                 <label className="block text-gray-dark text-sm font-bold mb-2" htmlFor={id}>
                     {label}
                 </label>
                 <select
                     {...customClass ? {className: customClass} : {
                         className: `appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline`
-                    }
-                    }
+                    }}
                     id={id}
-                    placeholder={placeholder}
+                    onChange={(event) => {
+                        if (setValue) {
+                            setValue(event.target.value)
+                        }
+                    }}
                 >
                     {
-                        options?.map((option: Option) => (
-                            <option value={option.value} key={option.value}>
+                        options?.map((option: Option, index: number) => (
+                            <option
+                                value={option.value}
+                                key={option.value}
+                                disabled={disableFirstOption && index === 0}
+                                {...option.text === value ? {selected: true} : {}}
+                            >
                                 {option.text}
                             </option>
                         ))
@@ -58,7 +85,7 @@ const InputField: React.FC<Props> = ({label, id, type, placeholder, options, cus
     }
 
     return (
-        <div className="mb-4">
+        <div className={parentCustomClass ? parentCustomClass : 'mb-4 w-full'}>
             <label className="block text-gray-dark text-sm font-bold mb-2" htmlFor={id}>
                 {label}
             </label>
@@ -75,6 +102,7 @@ const InputField: React.FC<Props> = ({label, id, type, placeholder, options, cus
                         setValue(event.target.value)
                     }
                 }}
+                value={value}
             />
         </div>
     )

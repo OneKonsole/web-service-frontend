@@ -33,7 +33,16 @@
       ],
       "@assets/*": [
         "src/assets/*"
-      ]
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@requests/*": [
+        "src/request/*"
+      ],
+      "@ressources/*": [
+        "src/ressources/*"
+      ],
     }
   },
   "include": [

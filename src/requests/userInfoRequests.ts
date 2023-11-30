@@ -1,26 +1,31 @@
 import {UserInfo} from "@/type.ts";
 
-/**
- * Return the user info
- */
+
+let mockUserInfo: UserInfo = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@oneKonsole.fr",
+    phone: "06 12 34 56 78",
+    company: "OneKonsole",
+};
+
+
 export const getUserInfo = (): UserInfo | undefined => {
 
     // TODO : get the user info from the backend
 
-    const userInfo: UserInfo = {
-        firstName: "John",
-        lastName: "Doe",
-        email: "john.doe@oneKonsole.fr",
-        phone: "06 12 34 56 78",
-        company: "OneKonsole",
-        address: {
-            name: "John Doe",
-            street: "1, rue de la Paix",
-            zipCode: "75000",
-            city: "Paris",
-            country: "France",
-        }
-    }
-
-    return userInfo;
+    return mockUserInfo;
 }
+
+export const updateUserInfo = (newUserInfo: UserInfo): boolean => {
+
+    // TODO : update the user info in the backend
+
+    if (newUserInfo) {
+        mockUserInfo = newUserInfo;
+        return true;
+    } else {
+        return false;
+    }
+}
+
