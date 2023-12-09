@@ -109,4 +109,7 @@ export enum SchemaIconType {
     etcd = "etcd",
     graphLoki = "graphLoki",
     prometheus = "prometheus",
+    harbor = "harbor",
+    imgStorage = "ImagesStorage",
+    monitoringStorage = "MonitoringStorage",
 }

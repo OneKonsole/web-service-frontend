@@ -12,12 +12,11 @@ const Order: React.FC = () => {
 
     const storageLim = {min: 0, max: 100};
     const [clusterName, setClusterName] = useState("");
-    const [storageValue, setStorageValue] = useState(0);
 
-    const [ctrlPlaneChecked, setCtrlPlaneChecked] = useState(false);
-    const [ctrlPlaneDisabled, setCtrlPlaneDisabled] = useState(false);
+    const [storageMonitoringValue, setStorageMonitoringValue] = useState(0);
+    const [storageImgValue, setStorageImgValue] = useState(0);
+
     const [monitoringChecked, setMonitoringChecked] = useState(false);
-    const [monitoringDisabled, setMonitoringDisabled] = useState(false);
     const [alertingChecked, setAlertingChecked] = useState(false);
 
     const [nextStepAllowed, setNextStepAllowed] = useState(false);
@@ -27,45 +26,30 @@ const Order: React.FC = () => {
      */
     useEffect(() => {
         if (
-            storageValue === 0
-            || storageValue === storageLim.max + 1
+            storageMonitoringValue === 0
+            || storageImgValue === 0
+            || storageMonitoringValue === storageLim.max + 1
+            || storageImgValue === storageLim.max + 1
             || clusterName === ""
         ) {
             setNextStepAllowed(false)
         } else {
             setNextStepAllowed(true)
         }
-    }, [storageValue, clusterName, storageLim.max])
+    }, [storageMonitoringValue, storageImgValue, clusterName, storageLim.max])
 
     /**
-     * Handle the switch state change for the control plane and monitoring
-     * @param controlPlaneValue true if the control plane is checked, false otherwise
-     * @param monitoringValue true if the monitoring is checked, false otherwise
+     * Handle the next step
      */
-    const handleSwitch = (controlPlaneValue: boolean, monitoringValue: boolean) => {
-        setCtrlPlaneChecked(controlPlaneValue);
-        setMonitoringChecked(monitoringValue);
-    };
-
-    /**
-     * Handle the switch state change for the control plane and monitoring
-     */
-    useEffect(() => {
-        if (ctrlPlaneChecked && monitoringChecked) {
-            setCtrlPlaneDisabled(true);
-            setMonitoringDisabled(false);
-        } else if (ctrlPlaneChecked && !monitoringChecked) {
-            setCtrlPlaneDisabled(false);
-            setMonitoringDisabled(false);
-        } else if (!ctrlPlaneChecked && monitoringChecked) {
-            setCtrlPlaneChecked(true);
-            setCtrlPlaneDisabled(true);
-            setMonitoringDisabled(false);
-        } else {
-            setCtrlPlaneDisabled(false);
-            setMonitoringDisabled(false);
-        }
-    }, [ctrlPlaneChecked, monitoringChecked]);
+    const handleNextStep = () => {
+        console.log("Order values :\n" +
+            "Cluster name : " + clusterName + "\n" +
+            "Control plane : " + true + "\n" +
+            "Monitoring : " + monitoringChecked + "\n" +
+            "Storage : " + storageMonitoringValue + "\n" +
+            "Alerting : " + alertingChecked + "\n"
+        )
+    }
 
     return (
         <PanelLayout>
@@ -87,12 +71,21 @@ const Order: React.FC = () => {
                         id="controlPlaneSwitch"
                         label="Control Plane"
                         description="Allows you to view and interpret your data"
-                        checked={ctrlPlaneChecked}
-                        disabled={ctrlPlaneDisabled}
+                        checked={true}
+                        disabled={true}
                         customParentClass="my-5"
-                        onChange={(checked: boolean) => {
-                            handleSwitch(checked, monitoringChecked)
+                        onChange={() => {
                         }}
+                    />
+
+                    <RangeSlider
+                        id="StorageSlider"
+                        label="Images Storage"
+                        valueUnit="Go"
+                        min={storageLim.min}
+                        max={storageLim.max}
+                        value={storageImgValue}
+                        onChange={setStorageImgValue}
                     />
 
                     <div className="my-5">
@@ -104,23 +97,21 @@ const Order: React.FC = () => {
                             <ToggleSwitch
                                 id="MonitoringSwitch"
                                 label="Monitoring"
-                                description="Allows you to view and interpret your data"
+                                description="Allows you to view and interpret your data, the storage is the space where your data will be stored"
                                 checked={monitoringChecked}
-                                disabled={monitoringDisabled}
+                                disabled={false}
                                 customParentClass="my-5"
-                                onChange={(checked: boolean) => {
-                                    handleSwitch(ctrlPlaneChecked, checked)
-                                }}
+                                onChange={setMonitoringChecked}
                             />
 
                             <RangeSlider
                                 id="StorageSlider"
-                                label="Storage"
+                                label="Monitoring Storage"
                                 valueUnit="Go"
                                 min={storageLim.min}
                                 max={storageLim.max}
-                                value={storageValue}
-                                onChange={setStorageValue}
+                                value={storageMonitoringValue}
+                                onChange={setStorageMonitoringValue}
                             />
                         </div>
                     </div>
@@ -150,15 +141,7 @@ const Order: React.FC = () => {
                             }
                             disabled={!nextStepAllowed}
                             customClass={`${nextStepAllowed ? 'bg-black-full hover:bg-gray-dark' : 'bg-gray'} text-white font-bold py-2 px-4 rounded-3xl`}
-                            onClick={() => {
-                                console.log("Order values :\n" +
-                                    "Cluster name : " + clusterName + "\n" +
-                                    "Control plane : " + ctrlPlaneChecked + "\n" +
-                                    "Monitoring : " + monitoringChecked + "\n" +
-                                    "Storage : " + storageValue + "\n" +
-                                    "Alerting : " + alertingChecked + "\n"
-                                )
-                            }}/>
+                            onClick={handleNextStep}/>
                     </div>
                 </div>
 
@@ -179,20 +162,40 @@ const Order: React.FC = () => {
                             },
 
                         ]}
-                        toolsIcons={[
-                            {
-                                iconType: SchemaIconType.graphLoki,
-                                instances: 1,
-                            },
-                            {
-                                iconType: SchemaIconType.prometheus,
-                                instances: 1,
-                            },
-                        ]}
                         externIcons={[
                             {
                                 iconType: SchemaIconType.etcd,
                                 instances: 1,
+                            },
+                            {
+                                iconType: SchemaIconType.harbor,
+                                instances: 1,
+                            },
+                        ]}
+                        toolsIcons={
+                            alertingChecked ?
+                                [
+                                    {
+                                        iconType: SchemaIconType.graphLoki,
+                                        instances: 1,
+                                    },
+                                    {
+                                        iconType: SchemaIconType.prometheus,
+                                        instances: 1,
+                                    },
+                                ] : undefined
+                        }
+                        storageIcons={[
+                            {
+                                iconType: SchemaIconType.imgStorage,
+                                instances: 1,
+                                value: storageImgValue === storageLim.max + 1 ? "" : storageImgValue + " Go",
+                            },
+                            {
+                                iconType: SchemaIconType.monitoringStorage,
+                                instances: monitoringChecked ? 1 : 0,
+                                value: storageMonitoringValue === storageLim.max + 1 ? "" : storageMonitoringValue + " Go",
+
                             },
                         ]}
                     />
