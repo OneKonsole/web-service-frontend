@@ -10,7 +10,8 @@ import Button from "@components/inputs/Button.tsx";
 
 const Order: React.FC = () => {
 
-    const storageLim = {min: 0, max: 100};
+    const storageLimMonitor = {min: 5, max: 100};
+    const storageLimImg = {min: 5, max: 100};
     const [clusterName, setClusterName] = useState("");
 
     const [storageMonitoringValue, setStorageMonitoringValue] = useState(0);
@@ -28,15 +29,15 @@ const Order: React.FC = () => {
         if (
             storageMonitoringValue === 0
             || storageImgValue === 0
-            || storageMonitoringValue === storageLim.max + 1
-            || storageImgValue === storageLim.max + 1
+            || storageMonitoringValue === storageLimMonitor.max + 1
+            || storageImgValue === storageLimImg.max + 1
             || clusterName === ""
         ) {
             setNextStepAllowed(false)
         } else {
             setNextStepAllowed(true)
         }
-    }, [storageMonitoringValue, storageImgValue, clusterName, storageLim.max])
+    }, [storageMonitoringValue, storageImgValue, clusterName, storageLimMonitor.max, storageLimImg.max])
 
     /**
      * Handle the next step
@@ -82,8 +83,8 @@ const Order: React.FC = () => {
                         id="StorageSlider"
                         label="Images Storage"
                         valueUnit="Go"
-                        min={storageLim.min}
-                        max={storageLim.max}
+                        min={storageLimImg.min}
+                        max={storageLimImg.max}
                         value={storageImgValue}
                         onChange={setStorageImgValue}
                     />
@@ -99,7 +100,6 @@ const Order: React.FC = () => {
                                 label="Monitoring"
                                 description="Allows you to view and interpret your data, the storage is the space where your data will be stored"
                                 checked={monitoringChecked}
-                                disabled={false}
                                 customParentClass="my-5"
                                 onChange={setMonitoringChecked}
                             />
@@ -108,8 +108,9 @@ const Order: React.FC = () => {
                                 id="StorageSlider"
                                 label="Monitoring Storage"
                                 valueUnit="Go"
-                                min={storageLim.min}
-                                max={storageLim.max}
+                                disabled={!monitoringChecked}
+                                min={storageLimMonitor.min}
+                                max={storageLimMonitor.max}
                                 value={storageMonitoringValue}
                                 onChange={setStorageMonitoringValue}
                             />
@@ -189,12 +190,12 @@ const Order: React.FC = () => {
                             {
                                 iconType: SchemaIconType.imgStorage,
                                 instances: 1,
-                                value: storageImgValue === storageLim.max + 1 ? "" : storageImgValue + " Go",
+                                value: storageImgValue === storageLimImg.max + 1 ? "" : storageImgValue + " Go",
                             },
                             {
                                 iconType: SchemaIconType.monitoringStorage,
                                 instances: monitoringChecked ? 1 : 0,
-                                value: storageMonitoringValue === storageLim.max + 1 ? "" : storageMonitoringValue + " Go",
+                                value: storageMonitoringValue === storageLimMonitor.max + 1 ? "" : storageMonitoringValue + " Go",
 
                             },
                         ]}

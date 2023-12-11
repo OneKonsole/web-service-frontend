@@ -105,7 +105,7 @@ const InfraSchema: React.FC<InfraSchemaProps> = (
                     className="h-20 w-20"
                 />
                 {icon.textTop &&
-                    <p className="absolute top-2 text-xs text-[9px] text-white font-bold">
+                    <p className="absolute top-2 text-xs text-[8px] text-white font-bold">
                         {icon.textTop}
                     </p>
                 }

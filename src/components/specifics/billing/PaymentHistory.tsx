@@ -1,6 +1,6 @@
 import React from "react";
 import {PaymentInstance} from "@/type.ts";
-import PaymentHistoryInstance from "@components/billing/PaymentHistoryInstance.tsx";
+import PaymentHistoryInstance from "@components/specifics/billing/PaymentHistoryInstance.tsx";
 
 type Props = {
     PaymentHistory?: PaymentInstance[] | undefined

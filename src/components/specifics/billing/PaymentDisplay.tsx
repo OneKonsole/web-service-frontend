@@ -2,7 +2,7 @@ import React from "react";
 import {OnGoingInfo} from "@/type.ts";
 import creditCardIcon from "@assets/icons/credit-card-gold.svg";
 import arrowRightIcon from "@assets/icons/arrow-right-2.svg";
-import {formatDate} from "@/utils/DateHelper.ts";
+import {formatDate} from "@utils/DateHelper.ts";
 
 type Props = {
     type: 'next' | 'current';
