@@ -2,8 +2,8 @@ import React, {useEffect} from "react";
 import chevronUpIcon from "@assets/icons/chevron-up.svg";
 import chevronDownIcon from "@assets/icons/chevron-down.svg";
 import {PaymentInstance} from "@/type.ts";
-import {formatDate} from "@/utils/DateHelper.ts";
-import {billingDetailsStr, paymentInstanceToPdf} from "@/utils/BillingHelper.ts";
+import {formatDate} from "@utils/DateHelper.ts";
+import {billingDetailsStr, paymentInstanceToPdf} from "@utils/BillingHelper.ts";
 
 type Props = {
     index: number,

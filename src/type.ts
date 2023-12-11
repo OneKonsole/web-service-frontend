@@ -114,3 +114,37 @@ export enum SchemaIconType {
     imgStorage = "ImagesStorage",
     monitoringStorage = "MonitoringStorage",
 }
+
+// ----- Clusters -----
+export type Cluster = {
+    name: string;
+    status: string;
+    kubeVersion: string;
+    orderID: string;
+    controlPlaneElements: ControlPlaneElement[];
+    nodes: NodeElement[];
+
+}
+export type ControlPlaneElement = {
+    name: string,
+    status: ControlPlaneStatus,
+    replicas: number,
+    cpu: number,
+    memory: number,
+}
+export type NodeElement = {
+    name: string,
+    isReady: boolean,
+    role: string,
+}
+
+export enum ControlPlaneStatus {
+    Pending = 'Pending',
+    Running = 'Running',
+    Succeeded = 'Succeeded',
+    Failed = 'Failed',
+    Unknown = 'Unknown',
+    Terminating = 'Terminating',
+    ContainerCreating = 'ContainerCreating',
+    Error = 'Error',
+}
