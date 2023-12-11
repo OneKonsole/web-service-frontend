@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import StatusComponent from "@components/specifics/clusters/StatusComponent.tsx";
 import ControlPlaneComponent from "@components/specifics/clusters/ControlPlaneComponent.tsx";
 import NodeComponent from "@components/specifics/clusters/NodeComponent.tsx";
@@ -9,6 +9,8 @@ import {getKubeConfig} from "@/requests/ClustersRequests.ts";
 import DownloadIcon from "@assets/icons/download.svg";
 import ClipBoardIcon from "@assets/icons/clipboard.svg";
 import CheckIcon from "@assets/icons/check.svg";
+import {useAuth} from "@context/AuthContext.tsx";
+import {jwtDecode} from "jwt-decode";
 
 type Props = {
     cluster: Cluster;
@@ -23,6 +25,12 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
     const [showHelper, setShowHelper] = React.useState(false);
     const commandToCopy = `kubeadm token create --print-join-command --config=${cluster.name}_kubeConfig.yaml`;
     const [isCommandCopied, setIsCommandCopied] = React.useState(false);
+
+    const [userId, setUserId] = useState<string>();
+    const {token} = useAuth();
+    if (!userId && token) {
+        setUserId(jwtDecode(token).sub);
+    }
 
     const handleDetailsClick = () => {
         setShowDetails(true);
@@ -52,8 +60,11 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
      * Function to download the corresponding yaml file
      */
     const downloadYaml = () => {
+        if (!token || !userId) {
+            return;
+        }
         const fileName = `${cluster.name}_kubeConfig.yaml`;
-        getKubeConfig(cluster.name).then((resp) => {
+        getKubeConfig(token, userId, cluster.name).then((resp) => {
             if (resp) {
                 const blob = new Blob([resp], {type: 'text/yaml'});
                 const link = document.createElement('a');
@@ -67,7 +78,6 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
         setShowHelper(true);
         handleCopyCommand();
     }
-
 
     return (
         <div
@@ -104,7 +114,6 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
                             <ClusterInfos cluster={cluster}/>
 
                             <button
-                                // bg not larger than content, fit content
                                 className="flex items-center justify-center text-sm rounded-lg bg-gray-light p-1 hover:bg-gray cursor-pointer mx-auto px-4 py-1"
                                 onClick={downloadYaml}
                             > Download Kube Config
@@ -121,18 +130,20 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
 
                             <div className="flex flex-col text-start mt-5 pr-2 border-r-[1px] border-gray">
                                 <label className="text-xs font-bold text-end pr-4"> Ready </label>
-                                {cluster.controlPlanes.map((controlPlane, index) => {
-                                    const isLast = index === cluster.controlPlanes.length - 1;
-                                    return <ControlPlaneComponent key={index} controlPlane={controlPlane}
+                                {Object.entries(cluster.controlPlane).map(([key, controlPlane], index) => {
+                                    const isLast = index === Object.entries(cluster.controlPlane).length - 1;
+                                    return <ControlPlaneComponent key={key} controlPlane={controlPlane}
                                                                   isLast={isLast}/>
                                 })}
                             </div>
 
                             <div className="flex flex-col mt-5 pl-2">
-                                {cluster.nodes.map((node, index) => {
+                                {cluster.nodes ? cluster.nodes.map((node, index) => {
                                     const isLast = index === cluster.nodes.length - 1;
                                     return <NodeComponent key={index} node={node} isLast={isLast}/>
-                                })}
+                                }) : (
+                                    <label className="text-md font-bold text-center pl-4"> No nodes yet !</label>
+                                )}
                             </div>
                         </div>
                     </div>

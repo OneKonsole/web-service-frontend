@@ -1,6 +1,6 @@
-const PREFIX = 'http://127.0.0.1:3000/users/';
+const PREFIX = 'http://auth.onekonsole.emetral.fr/users/';
 
-export enum API_ROUTES {
+export enum AUTH_API_ROUTES {
     LOGOUT = PREFIX + 'logout',
     GET_USER_INFO = PREFIX + 'babababa',
     LOGIN = PREFIX + 'login',
