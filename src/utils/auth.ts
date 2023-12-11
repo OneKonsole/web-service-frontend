@@ -1,5 +1,5 @@
 import {HttpMessage, TokenResponse} from "@/type.ts";
-import {API_ROUTES} from "@config/API_ROUTES.ts";
+import {AUTH_API_ROUTES} from "@config/AUTH_API_ROUTES.ts";
 
 type LogoutProps = {
     refreshToken: string,
@@ -20,7 +20,7 @@ const logout = ({refreshToken, token}: LogoutProps) => {
         mode: 'cors'
     }
 
-    return request(API_ROUTES.LOGOUT, options)
+    return request(AUTH_API_ROUTES.LOGOUT, options)
         .then(data => {
             return data.data
         })
@@ -46,7 +46,7 @@ const getUserInfo = async ({token}: UserInfoProps) => {
         mode: 'cors'
     }
 
-    return request(API_ROUTES.GET_USER_INFO, options)
+    return request(AUTH_API_ROUTES.GET_USER_INFO, options)
         .then(data => {
             return data
         })
@@ -78,7 +78,7 @@ const updateUserInfo = async (token: string, data: never) => {
         mode: 'cors'
     }
 
-    return request(API_ROUTES.UPDATE_USER_INFO + data.id, options)
+    return request(AUTH_API_ROUTES.UPDATE_USER_INFO + data.id, options)
         .then(data => {
             return data
         })
@@ -123,7 +123,7 @@ const login = async ({username, password}: TokenProps): Promise<HttpMessage> => 
         mode: 'cors'
     }
 
-    return request(API_ROUTES.LOGIN, options)
+    return request(AUTH_API_ROUTES.LOGIN, options)
         .then(data => {
             console.log(data)
             if (data.data.token === undefined || data.data.refreshToken === undefined || data.data.token === null || data.data.refreshToken === null) {
@@ -174,7 +174,7 @@ const register = async (data: registerUserInfo): Promise<HttpMessage> => {
         mode: 'cors'
     }
 
-    return request(API_ROUTES.REGISTER_USER, options)
+    return request(AUTH_API_ROUTES.REGISTER_USER, options)
         .then(data => {
             console.log('REGISTER : ', data)
             return {
@@ -217,7 +217,7 @@ const callRefreshToken = async ({refreshToken}: RefreshTokenProps): Promise<Http
         mode: 'cors'
     }
 
-    return request(API_ROUTES.REFRESH_TOKEN, options)
+    return request(AUTH_API_ROUTES.REFRESH_TOKEN, options)
         .then(data => {
             if (data.data?.token === undefined || data.data?.refreshToken === undefined || data.data?.token === null || data.data?.refreshToken === null) {
                 return {

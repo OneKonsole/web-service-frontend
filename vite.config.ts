@@ -27,20 +27,20 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '/realms/test-sso/protocol/openid-connect': {
-                target: 'http://127.0.0.1:1238',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/realms\/test-sso\/protocol\/openid-connect/, ''),
-            },
             '/users/': {
-                target: 'http://127.0.0.1:3000',
+                target: 'http://auth.onekonsole.emetral.fr',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/users\//, ''),
             },
             '/logout': {
-                target: 'http://127.0.0.1:3000',
+                target: 'http://auth.onekonsole.emetral.fr',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/logout\//, ''),
+            },
+            '/billing-api/': {
+                target: 'http://billing.onekonsole.emetral.fr',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/billing-api\//, ''),
             },
             '/prometheus-api/': {
                 target: 'http://mimir.onekonsole.emetral.fr',
@@ -51,12 +51,11 @@ export default defineConfig({
                 protocolRewrite: 'http',
                 followRedirects: true,
             },
+            '/clusters-api/' : {
+                target: 'http://cluster-management.onekonsole.emetral.fr',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/clusters-api\//, ''),
+            },
         },
-        watch: {
-            usePolling: true
-        },
-        host: true,
-        strictPort: true,
-        port: 80
     }
 })

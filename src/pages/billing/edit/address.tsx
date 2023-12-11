@@ -3,7 +3,7 @@ import PanelLayout from "@components/layout/PanelLayout.tsx";
 import {InputType, PostalAddress} from "@/type.ts";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
-import CountriesList from "@ressources/countries.json";
+import CountriesList from "@resources/countries.json";
 import {getUserBillingPostalAddress, updateUserBillingAddress} from "@/requests/billingRequests.ts";
 import {useNavigate} from "react-router";
 import LoadingPage from "@components/LoadingPage.tsx";

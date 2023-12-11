@@ -24,18 +24,21 @@ export type PostalAddress = {
 // ----- Order -----
 
 export type OrderInfos = {
-    clusterName: string;
-    imagesStorage: number;
-    monitoringOption: boolean;
-    monitoringStorage: number;
-    alertingOption: boolean;
+    user_id: string;
+    cluster_name: string;
+    images_storage: number;
+    has_monitoring: boolean;
+    monitoring_storage: number;
+    has_alerting: boolean;
 }
 
 // ----- Billing -----
 
 export enum AcceptedCurrency {
-    USD = '$',
-    EUR = '€',
+    USD = 'USD',
+    USD_symbol = '$',
+    EUR = 'EUR',
+    EUR_symbol = '€',
 }
 
 export type BillingInfo = {
@@ -47,10 +50,11 @@ export type BillingInfo = {
 }
 
 export type FixedPrices = {
-    minimum: number;
-    alertingOption: number;
-    logUnitPrice: number;
-    storageUnitPrice: number;
+    basic: number;
+    img_storage_price_unit: number;
+    monitoring_option: number;
+    monitoring_storage_price_unit: number;
+    alerting_option: number;
 }
 
 export type PaymentInstance = {
@@ -133,23 +137,23 @@ export enum SchemaIconType {
 export type Cluster = {
     name: string;
     status: string;
-    kubeVersion: string;
-    orderID: string;
-    controlPlanes: ControlPlane[];
-    nodes: NodeElement[];
+    kubernetesVersion: string;
+    orderId: string;
+    controlPlane: ControlPlane[];
+    nodes?: NodeElement[];
 
 }
 export type ControlPlane = {
-    Connectivity: ControlPlaneElement;
-    KubeScheduler: ControlPlaneElement;
-    KubeApiServer: ControlPlaneElement;
-    KubeControllerManager: ControlPlaneElement;
+    'konnectivity-server': ControlPlaneElement;
+    'kube-scheduler': ControlPlaneElement;
+    'kube-apiserver': ControlPlaneElement;
+    'kube-controller-manager': ControlPlaneElement;
 }
 
 export type ControlPlaneElement = {
     name: string,
-    readyNb: number,
-    DesiredNumberScheduled: number,
+    readyNumber: number,
+    desiredNumberScheduled: number,
 }
 export type NodeElement = {
     name: string,

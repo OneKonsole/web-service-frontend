@@ -5,6 +5,8 @@ import Button from "@components/inputs/Button.tsx";
 import {Cluster} from "@/type.ts";
 import ClusterInstance from "@components/specifics/clusters/ClusterInstance.tsx";
 import LoadingPage from "@components/LoadingPage.tsx";
+import {useAuth} from "@context/AuthContext.tsx";
+import {jwtDecode} from "jwt-decode";
 
 /**
  * Component to display the clusters page with all the clusters deployed by the user
@@ -14,19 +16,28 @@ const ClustersPage: React.FC = () => {
     const [clusters, setClusters] = React.useState<Cluster[] | undefined>();
     const [isLoading, setIsLoading] = useState(true);
 
-    getClustersList().then((resp) => {
-        setClusters(resp);
-    }).catch((err) => {
-        console.log(err);
-    }).finally(() => {
-        setIsLoading(false);
-    });
+    const [userId, setUserId] = useState<string>();
+    const {token} = useAuth();
+    if (!userId && token) {
+        setUserId(jwtDecode(token).sub);
+    }
+
+    if (userId && token && clusters === undefined) {
+        getClustersList(token, userId).then((resp) => {
+
+            setClusters(resp);
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setIsLoading(false);
+        });
+    }
 
     if (isLoading) {
         return <LoadingPage/>;
     }
 
-    if (clusters) {
+    if (clusters && clusters.length > 0) {
         return (
             <PanelLayout>
                 <div className="flex flex-row flex-wrap p-5">

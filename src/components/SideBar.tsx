@@ -66,7 +66,7 @@ const SideBar: React.FC = () => {
 
     const midMenuItems = [
         {link: '/monitoring', imgSrc: monitorIcon, imgAlt: 'Monitoring', text: 'Monitoring'},
-        {link: '/clusters', imgSrc: clusterIcon, imgAlt: 'Cluster', text: 'Cluster'},
+        {link: '/clusters', imgSrc: clusterIcon, imgAlt: 'Clusters', text: 'Clusters'},
         {link: '/billing', imgSrc: billingIcon, imgAlt: 'Billing', text: 'Billing'},
         {link: '/download', imgSrc: downloadIcon, imgAlt: 'Download', text: 'Download'},
         {link: '/order', imgSrc: orderIcon, imgAlt: 'Order', text: 'Order'}
