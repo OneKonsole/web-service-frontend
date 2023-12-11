@@ -1,9 +1,10 @@
 import PanelLayout from "@components/layout/PanelLayout.tsx";
-import React from "react";
+import React, {useState} from "react";
 import {getClustersList} from "@/requests/ClustersRequests.ts";
 import Button from "@components/inputs/Button.tsx";
 import {Cluster} from "@/type.ts";
 import ClusterInstance from "@components/specifics/clusters/ClusterInstance.tsx";
+import LoadingPage from "@components/LoadingPage.tsx";
 
 /**
  * Component to display the clusters page with all the clusters deployed by the user
@@ -11,15 +12,19 @@ import ClusterInstance from "@components/specifics/clusters/ClusterInstance.tsx"
  */
 const ClustersPage: React.FC = () => {
     const [clusters, setClusters] = React.useState<Cluster[] | undefined>();
+    const [isLoading, setIsLoading] = useState(true);
 
     getClustersList().then((resp) => {
-            if (resp) {
-                setClusters(resp);
-            }
-        }
-    ).catch((err) => {
+        setClusters(resp);
+    }).catch((err) => {
         console.log(err);
+    }).finally(() => {
+        setIsLoading(false);
     });
+
+    if (isLoading) {
+        return <LoadingPage/>;
+    }
 
     if (clusters) {
         return (
