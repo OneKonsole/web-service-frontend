@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
-import PaymentMethod from "@components/specifics/billing/PaymentMethod.tsx";
-import PaymentAddress from "@components/specifics/billing/PaymentAddress.tsx";
 import PaymentDisplay from "@components/specifics/billing/PaymentDisplay.tsx";
 import PaymentHistory from "@components/specifics/billing/PaymentHistory.tsx";
 import {getUserBillingDetails} from "@/requests/billingRequests.ts";
@@ -35,7 +33,7 @@ const Billing: React.FC = () => {
                         Your billing details
                     </label>
                     <div className="flex">
-                        <div className="flex flex-col w-2/3 p-5">
+                        <div className="flex flex-col w-full p-5">
 
                             <div className="flex flex-row space-x-5 mb-5">
 
@@ -52,24 +50,6 @@ const Billing: React.FC = () => {
 
                             <PaymentHistory
                                 PaymentHistory={billingInfo ? billingInfo?.paymentInstances : undefined}
-                            />
-
-                        </div>
-
-                        <div className="flex flex-col w-1/3 p-5 border-l-2 border-gray h-auto">
-
-                            <PaymentMethod
-                                method="Card"
-                                cardInfo={billingInfo ? billingInfo?.cardInfo : undefined}
-                            />
-
-                            <PaymentMethod
-                                method="PayPal"
-                                payPalInfo={billingInfo ? billingInfo?.payPalInfo : undefined}
-                            />
-
-                            <PaymentAddress
-                                postalAddress={billingInfo ? billingInfo?.address : undefined}
                             />
                         </div>
                     </div>

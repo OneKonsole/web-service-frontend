@@ -3,7 +3,6 @@ import {callRefreshToken} from "@utils/auth.ts";
 let timerId: string | number | NodeJS.Timeout | null | undefined = null;
 
 self.addEventListener('message', (e) => {
-    console.log("[WORKER] Received message:", e.data.message);
     switch (e.data.message) {
         case 'start':
             if (timerId === null) { // Start only if not already started
