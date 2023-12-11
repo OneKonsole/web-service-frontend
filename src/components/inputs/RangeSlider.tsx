@@ -8,6 +8,7 @@ interface NumericSliderProps {
     max: number;
     value?: number;
     customParentClass?: string;
+    disabled?: boolean;
     onChange: (value: number) => void;
 }
 
@@ -19,6 +20,7 @@ const RangeSlider: React.FC<NumericSliderProps> = ({
                                                        max,
                                                        value: initialValue,
                                                        customParentClass,
+                                                       disabled,
                                                        onChange
                                                    }) => {
     const [value, setValue] = useState<number>(initialValue || min);
@@ -48,6 +50,7 @@ const RangeSlider: React.FC<NumericSliderProps> = ({
             <div className="flex flex-col space-y-2">
 
                 <input
+                    disabled={disabled}
                     type="range"
                     min={min}
                     max={max + 1}

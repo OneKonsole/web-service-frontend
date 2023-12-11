@@ -1,9 +1,9 @@
 import React from "react";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
-import PaymentMethod from "@components/billing/PaymentMethod.tsx";
-import PaymentAddress from "@components/billing/PaymentAddress.tsx";
-import PaymentDisplay from "@components/billing/PaymentDisplay.tsx";
-import PaymentHistory from "@components/billing/PaymentHistory.tsx";
+import PaymentMethod from "@components/specifics/billing/PaymentMethod.tsx";
+import PaymentAddress from "@components/specifics/billing/PaymentAddress.tsx";
+import PaymentDisplay from "@components/specifics/billing/PaymentDisplay.tsx";
+import PaymentHistory from "@components/specifics/billing/PaymentHistory.tsx";
 import {getUserBillingDetails} from "@/requests/billingRequests.ts";
 import {BillingInfo} from "@/type.ts";
 
