@@ -3,8 +3,9 @@ import apiIcon from "@assets/icons/api.svg";
 import cmIcon from "@assets/icons/cm.svg";
 import schedulerIcon from "@assets/icons/scheduler.svg";
 import etcdIcon from "@assets/icons/etcd.svg";
-import graphLokiIcon from "@assets/logos/graphana-loki.svg";
-import prometheusIcon from "@assets/logos/prometheus.svg";
+import graphLokiIcon from "@assets/logos/graphana-loki-titled.svg";
+import prometheusIcon from "@assets/logos/prometheus-titled.svg";
+import prometheusAlertIcon from "@assets/logos/prometheus-titled-alert.svg";
 import harborIcon from "@assets/logos/harbor.svg";
 import dbIcon from "@assets/icons/database.svg";
 import {SchemaIconType} from "@/type.ts";
@@ -36,6 +37,7 @@ const iconTypeToSrcMap: Record<SchemaIconType, string> = {
     [SchemaIconType.etcd]: etcdIcon,
     [SchemaIconType.graphLoki]: graphLokiIcon,
     [SchemaIconType.prometheus]: prometheusIcon,
+    [SchemaIconType.prometheusAlert]: prometheusAlertIcon,
     [SchemaIconType.harbor]: harborIcon,
     [SchemaIconType.imgStorage]: dbIcon,
     [SchemaIconType.monitoringStorage]: dbIcon,
@@ -52,7 +54,8 @@ const iconTypeToDescriptionMap: Record<SchemaIconType, string> = {
     [SchemaIconType.scheduler]: "Scheduler: Assigns workloads to nodes.",
     [SchemaIconType.etcd]: "etcd: Key-value store for cluster data.",
     [SchemaIconType.graphLoki]: "Grafana Loki: Log aggregation system.",
-    [SchemaIconType.prometheus]: "Prometheus: Monitoring and alerting toolkit.",
+    [SchemaIconType.prometheus]: "Prometheus: Monitoring toolkit.",
+    [SchemaIconType.prometheusAlert]: "Prometheus: Monitoring and alerting toolkit.",
     [SchemaIconType.harbor]: "Harbor: Container image registry.",
     [SchemaIconType.imgStorage]: "Image Storage: Stores container images.",
     [SchemaIconType.monitoringStorage]: "Monitoring Storage: Stores monitoring data.",
@@ -98,14 +101,14 @@ const InfraSchema: React.FC<InfraSchemaProps> = (
 
     const renderImageWithTooltip = (icon: Icon) => {
         return Array.from({length: icon.instances}, (_, index) => (
-            <div key={icon.iconType + index} className="group relative flex justify-center">
+            <div key={icon.iconType + index} className="group relative flex justify-center px-2">
                 <img
                     src={icon.src}
                     alt={icon.iconType}
-                    className="h-20 w-20"
+                    className="h-20"
                 />
                 {icon.textTop &&
-                    <p className="absolute top-2 text-xs text-[8px] text-white font-bold">
+                    <p className="absolute top-2 text-xs text-[7px] text-white font-bold">
                         {icon.textTop}
                     </p>
                 }
@@ -130,8 +133,8 @@ const InfraSchema: React.FC<InfraSchemaProps> = (
             <div className="p-10">
                 <div className="rounded-3xl text-center border-dark border-2 pt-2">
 
-                    <p className="mb-2">Your tenant</p>
-                    <hr/>
+                    <p className="mb-2"> Your tenant </p>
+                    <hr className="border-[1.5px]"/>
 
                     <div className="flex flex-wrap justify-center p-5">
                         {kubeIcons.flatMap(icon => renderImageWithTooltip(icon))}

@@ -8,6 +8,7 @@ import SideBar from "@components/SideBar.tsx";
  */
 type Props = {
     children: React.ReactNode;
+
 }
 /**
  * PanelLayout component is used to render a panel layout

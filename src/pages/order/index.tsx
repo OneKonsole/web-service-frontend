@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {InputType, SchemaIconType} from "@/type.ts";
+import {InputType, OrderInfos, SchemaIconType} from "@/type.ts";
 import arrowRightIcon from "@assets/icons/arrow-right.svg";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
 import InputField from "@components/inputs/InputField.tsx";
@@ -14,8 +14,8 @@ const Order: React.FC = () => {
     const storageLimImg = {min: 5, max: 100};
     const [clusterName, setClusterName] = useState("");
 
-    const [storageMonitoringValue, setStorageMonitoringValue] = useState(0);
-    const [storageImgValue, setStorageImgValue] = useState(0);
+    const [storageMonitoringValue, setStorageMonitoringValue] = useState(storageLimMonitor.min);
+    const [storageImgValue, setStorageImgValue] = useState(storageLimImg.min);
 
     const [monitoringChecked, setMonitoringChecked] = useState(false);
     const [alertingChecked, setAlertingChecked] = useState(false);
@@ -43,19 +43,21 @@ const Order: React.FC = () => {
      * Handle the next step
      */
     const handleNextStep = () => {
-        console.log("Order values :\n" +
-            "Cluster name : " + clusterName + "\n" +
-            "Control plane : " + true + "\n" +
-            "Monitoring : " + monitoringChecked + "\n" +
-            "Storage : " + storageMonitoringValue + "\n" +
-            "Alerting : " + alertingChecked + "\n"
-        )
+
+        const orderInfos: OrderInfos = {
+            clusterName: clusterName,
+            imagesStorage: storageImgValue,
+            monitoringOption: monitoringChecked,
+            monitoringStorage: monitoringChecked ? storageMonitoringValue : 0,
+            alertingOption: monitoringChecked ? alertingChecked : false,
+        }
+        console.log(orderInfos);
     }
 
     return (
         <PanelLayout>
-            <div className="flex h-screen">
-                <div className="flex bg-gray-light w-1/3 flex-col rounded-r-3xl p-5">
+            <div className="flex h-fit">
+                <div className="flex bg-gray-light w-1/3 min-h-screen max-h-fit flex-col rounded-r-3xl p-5">
                     <p className="text-lg font-bold text-center my-7">
                         Choose your options
                     </p>
@@ -71,7 +73,7 @@ const Order: React.FC = () => {
                     <ToggleSwitch
                         id="controlPlaneSwitch"
                         label="Control Plane"
-                        description="Allows you to view and interpret your data"
+                        description="Enables or disables the control plane. When enabled, it manages the state and configuration of the cluster. This switch is disabled by default and cannot be altered."
                         checked={true}
                         disabled={true}
                         customParentClass="my-5"
@@ -89,45 +91,39 @@ const Order: React.FC = () => {
                         onChange={setStorageImgValue}
                     />
 
-                    <div className="my-5">
-                        <label className="block text-gray-dark text-md font-bold mb-5">
-                            Nodes
-                        </label>
-                        <div className="ml-5">
+                    <ToggleSwitch
+                        id="MonitoringSwitch"
+                        label="Monitoring"
+                        description="Toggle to activate or deactivate monitoring. Monitoring provides insights into the cluster's performance and health metrics. Requires additional storage for data collection."
+                        checked={monitoringChecked}
+                        customParentClass="my-5"
+                        onChange={setMonitoringChecked}
+                    />
 
-                            <ToggleSwitch
-                                id="MonitoringSwitch"
-                                label="Monitoring"
-                                description="Allows you to view and interpret your data, the storage is the space where your data will be stored"
-                                checked={monitoringChecked}
-                                customParentClass="my-5"
-                                onChange={setMonitoringChecked}
-                            />
-
-                            <RangeSlider
-                                id="StorageSlider"
-                                label="Monitoring Storage"
-                                valueUnit="Go"
-                                disabled={!monitoringChecked}
-                                min={storageLimMonitor.min}
-                                max={storageLimMonitor.max}
-                                value={storageMonitoringValue}
-                                onChange={setStorageMonitoringValue}
-                            />
-                        </div>
-                    </div>
+                    <RangeSlider
+                        id="StorageSlider"
+                        label="Monitoring Storage"
+                        valueUnit="Go"
+                        disabled={!monitoringChecked}
+                        min={storageLimMonitor.min}
+                        max={storageLimMonitor.max}
+                        value={storageMonitoringValue}
+                        onChange={setStorageMonitoringValue}
+                    />
 
                     <ToggleSwitch
                         id="AlertingSwitch"
                         label="Alerting"
-                        description="Allow you to have alerts when something goes wrong"
+                        description="Turn on or off alerting features. Alerting notifies you of critical issues and anomalies in your cluster, helping with proactive maintenance."
+                        disabled={!monitoringChecked}
                         checked={alertingChecked}
+                        customParentClass="my-5"
                         onChange={setAlertingChecked}
                     />
 
                     <div className="flex-grow"></div>
 
-                    <div className="flex justify-center mb-7">
+                    <div className="flex justify-center">
 
                         <Button
                             to="/billing"
@@ -141,7 +137,7 @@ const Order: React.FC = () => {
                                 </div>
                             }
                             disabled={!nextStepAllowed}
-                            customClass={`${nextStepAllowed ? 'bg-black-full hover:bg-gray-dark' : 'bg-gray'} text-white font-bold py-2 px-4 rounded-3xl`}
+                            customClass={`${nextStepAllowed ? 'bg-black-full hover:bg-gray-dark' : 'bg-gray'} mt-5 text-white font-bold py-2 px-4 rounded-3xl`}
                             onClick={handleNextStep}/>
                     </div>
                 </div>
@@ -174,14 +170,14 @@ const Order: React.FC = () => {
                             },
                         ]}
                         toolsIcons={
-                            alertingChecked ?
+                            monitoringChecked ?
                                 [
                                     {
                                         iconType: SchemaIconType.graphLoki,
                                         instances: 1,
                                     },
                                     {
-                                        iconType: SchemaIconType.prometheus,
+                                        iconType: alertingChecked ? SchemaIconType.prometheusAlert : SchemaIconType.prometheus,
                                         instances: 1,
                                     },
                                 ] : undefined
