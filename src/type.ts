@@ -18,6 +18,15 @@ export type PostalAddress = {
     zipCode: string;
 }
 
+// ----- Order -----
+
+export type OrderInfos = {
+    clusterName: string;
+    imagesStorage: number;
+    monitoringOption: boolean;
+    monitoringStorage: number;
+    alertingOption: boolean;
+}
 
 // ----- Billing -----
 
@@ -110,6 +119,7 @@ export enum SchemaIconType {
     etcd = "etcd",
     graphLoki = "graphLoki",
     prometheus = "prometheus",
+    prometheusAlert = "prometheusAlert",
     harbor = "harbor",
     imgStorage = "ImagesStorage",
     monitoringStorage = "MonitoringStorage",
