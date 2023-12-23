@@ -18,7 +18,30 @@ export default defineConfig({
             '@components': path.resolve(__dirname, './src/components'),
             '@utils': path.resolve(__dirname, './src/utils'),
             '@requests': path.resolve(__dirname, './src/requests'),
-            '@ressources': path.resolve(__dirname, './src/ressources'),
+            '@config': path.resolve(__dirname, './src/config'),
+            '@context': path.resolve(__dirname, './src/context'),
+            "@provider": path.resolve(__dirname, './src/provider'),
+            '@resources': path.resolve(__dirname, './src/resources'),
+            '@worker': path.resolve(__dirname, './src/worker'),
         },
     },
+    server: {
+        proxy: {
+            '/realms/test-sso/protocol/openid-connect': {
+                target: 'http://127.0.0.1:1238',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/realms\/test-sso\/protocol\/openid-connect/, ''),
+            },
+            '/users/': {
+                target: 'http://127.0.0.1:3000',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/users\//, ''),
+            },
+            '/logout': {
+                target: 'http://127.0.0.1:3000',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/logout\//, ''),
+            },
+        },
+    }
 })

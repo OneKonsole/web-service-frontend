@@ -1,11 +1,14 @@
 // ----- User -----
 
 export type UserInfo = {
+    id: string,
     firstName: string;
     lastName: string;
     email: string;
     phone?: string;
     company?: string;
+    country?: string;
+    role?: string;
     billingInfo?: BillingInfo;
 }
 
