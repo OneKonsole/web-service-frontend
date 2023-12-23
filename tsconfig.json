@@ -28,11 +28,11 @@
       "@/*": [
         "src/*"
       ],
-      "@components/*": [
-        "src/components/*"
-      ],
       "@assets/*": [
         "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
       ],
       "@utils/*": [
         "src/utils/*"
@@ -40,9 +40,21 @@
       "@requests/*": [
         "src/request/*"
       ],
-      "@ressources/*": [
-        "src/ressources/*"
+      "@config/*": [
+        "src/config/*"
       ],
+      "@context/*": [
+        "src/context/*"
+      ],
+      "@provider/*": [
+        "src/provider/*"
+      ],
+      "@resources/*": [
+        "src/resources/*"
+      ],
+      "@worker/*": [
+        "src/worker/*"
+      ]
     }
   },
   "include": [
