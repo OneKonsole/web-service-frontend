@@ -1,14 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
 import Button from "@components/inputs/Button.tsx";
 import InputField from "@components/inputs/InputField.tsx";
-import {InputType, Option} from "@/type.ts";
+import {InputType, Option, UserInfo} from "@/type.ts";
 
 import defaultAvatar from "@assets/icons/default-avatar.svg";
+import {useAuth} from "@context/AuthContext.tsx";
+import {getUserInfo, updateUserInfo} from "@utils/auth.ts";
 
 const Account: React.FC = () => {
 
+    const {token} = useAuth();
     const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+    const [id, setId] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [company, setCompany] = useState('');
+    const [role, setRole] = useState('');
+    const [country, setCountry] = useState('');
+
+    useEffect(() => {
+        getUserInfo({token})
+            .then((res) => {
+                setId(res.sub);
+                setFirstName(res.given_name);
+                setLastName(res.family_name);
+                setEmail(res.email);
+                setPhone(res?.phone);
+                setCompany(res?.company);
+                setRole(res?.role);
+                setCountry(res?.country);
+
+                console.log("User ID : " + res.sub + " - " + id)
+            })
+            .catch((er) => {
+                console.log(er)
+            })
+    }, [token]);
 
     // Handler for file selection or drop
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +66,31 @@ const Account: React.FC = () => {
         event.stopPropagation();
     };
 
+    const handleSave = (): void => {
+        const userInfo = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            company: company,
+            role: role,
+            country: country
+        }
+
+        console.log(userInfo)
+
+        updateUserInfo(token, userInfo)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((er) => {
+                console.log(er)
+            })
+
+        console.log(userInfo)
+    };
+
     return (
         <PanelLayout>
             <div className="px-11">
@@ -60,6 +115,9 @@ const Account: React.FC = () => {
                             content="Save"
                             customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
                             to=''
+                            onClick={() => {
+                                handleSave()
+                            }}
                         />
                     </div>
                 </div>
@@ -75,16 +133,37 @@ const Account: React.FC = () => {
                             label={null}
                             id="firstname"
                             type={InputType.text}
-                            placeholder="Firstname"
+                            placeholder={firstName ? firstName : 'First name'}
+                            value={firstName}
+                            setValue={setFirstName}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
-
                         />
                         <InputField
                             label={null}
                             id="lastname"
                             type={InputType.text}
-                            placeholder="Lastname"
+                            placeholder={lastName ? lastName : 'Last name'}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
+                            value={lastName}
+                            setValue={setLastName}
+                        />
+                    </div>
+                </div>
+                <hr className="mx-2 my-2 border-gray"/>
+
+                <div className="mx-2 flex items-center justify-between relative">
+                    <h2 className="text-xl text-gray-dark">
+                        Email
+                    </h2>
+                    <div className="flex justify-center items-center gap-2">
+                        <InputField
+                            label={null}
+                            id="email"
+                            type={InputType.text}
+                            placeholder={email ? email : 'Email'}
+                            customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
+                            value={email}
+                            setValue={setEmail}
                         />
                     </div>
                 </div>
@@ -133,7 +212,7 @@ const Account: React.FC = () => {
 
                 <div className="mx-2 flex items-center justify-between relative">
                     <h2 className="text-xl text-gray-dark align-middle">
-                        Your role
+                        Your company
                     </h2>
                     <div className="flex justify-center items-center gap-2">
                         <InputField
@@ -141,7 +220,9 @@ const Account: React.FC = () => {
                             id="role"
                             type={InputType.text}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Product Owner, Cloud Architect..."
+                            placeholder={company ? company : 'Google, Amazon, Meta..."'}
+                            value={company}
+                            setValue={setCompany}
                         />
                     </div>
                 </div>
@@ -171,37 +252,8 @@ const Account: React.FC = () => {
                             ] as Option[]}
                             customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Country"
-                        />
-                    </div>
-                </div>
-
-                <hr className="mx-2 my-2 border-gray"/>
-
-                <div className="mx-2 flex items-center justify-between relative">
-                    <h2 className="text-xl text-gray-dark align-middle">
-                        Timezone
-                    </h2>
-                    <div className="flex justify-center items-center gap-2">
-                        <InputField
-                            label={null}
-                            id="role"
-                            type={InputType.select}
-                            options={[
-                                {value: 'GMT+1', text: 'GMT+1'},
-                                {value: 'GMT+2', text: 'GMT+2'},
-                                {value: 'GMT+3', text: 'GMT+3'},
-                                {value: 'GMT+4', text: 'GMT+4'},
-                                {value: 'GMT+5', text: 'GMT+5'},
-                                {value: 'GMT+6', text: 'GMT+6'},
-                                {value: 'GMT+7', text: 'GMT+7'},
-                                {value: 'GMT+8', text: 'GMT+8'},
-                                {value: 'GMT+9', text: 'GMT+9'},
-                                {value: 'GMT+10', text: 'GMT+10'},
-                                {value: 'GMT+11', text: 'GMT+11'},
-                                {value: 'GMT+12', text: 'GMT+12'},
-                            ] as Option[]}
-                            customClass="w-96 appearance-none border rounded border-gray w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Product Owner, Cloud Architect..."
+                            value={country}
+                            setValue={setCountry}
                         />
                     </div>
                 </div>
@@ -217,6 +269,9 @@ const Account: React.FC = () => {
                         content="Save"
                         customClass="text-white py-2 px-4 rounded-md bg-blue hover:bg-blue-light"
                         to=''
+                        onClick={() => {
+                            handleSave()
+                        }}
                     />
                 </div>
             </div>
