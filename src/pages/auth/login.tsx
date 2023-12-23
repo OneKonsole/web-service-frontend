@@ -1,16 +1,47 @@
-import React from "react";
-import {Link} from 'react-router-dom';
+import React, {useState} from "react";
+import {Link, redirect} from 'react-router-dom';
 import FormContainer from "@components/form/FormContainer.tsx";
 import InputField from "@components/inputs/InputField.tsx";
 import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
 import {InputType} from "@/type.ts";
+import {login} from "@utils/auth.ts";
+import {useAuth} from "@context/AuthContext.tsx";
+import {startAutoRefreshToken, stopAutoRefreshToken} from "@utils/runWorkers.ts";
 
 /**
  * Login component is used to render the login page
  * @constructor React.FC
  */
 const Login: React.FC = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const {setToken, setRefreshToken} = useAuth();
+
+    const handleLogin = async (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+        try {
+            login({
+                username,
+                password
+            }).then((r) => {
+                if (r.code === 200) {
+                    setToken(r.data.token);
+                    setRefreshToken(r.data.refresh_token);
+                    // Redirect to dashboard
+                    redirect("/menus/monitor")
+                } else {
+                    setError(r.message);
+                }
+            });
+        } catch (error) {
+            setError("Failed to login");
+        }
+    };
+
+    stopAutoRefreshToken();
+
     const actionSection = (
         <React.Fragment>
             <div className="flex items-center justify-center">
@@ -25,8 +56,18 @@ const Login: React.FC = () => {
 
     const formFields = (
         <React.Fragment>
-            <InputField label="Username" id="username" type={InputType.text} placeholder="Username"/>
-            <InputField label="Password" id="password" type={InputType.password} placeholder="******************"/>
+            <InputField label="Username" id="username" type={InputType.text} placeholder="Username"
+                        setValue={setUsername}/>
+            <InputField label="Password" id="password" type={InputType.password} placeholder="******************"
+                        setValue={setPassword}/>
+            <div className="flex items-center justify-center">
+                <p className="text-red text-xs italic">{error}</p>
+            </div>
+            <div className="flex items-center justify-center">
+                <button type="submit" className="text-black py-2 px-4 rounded underline hover:no-underline">
+                    Login
+                </button>
+            </div>
             <div className="flex items-center justify-center">
                 <Link to="/auth/forgot-password"
                       className="inline-block align-baselinetext-sm text-blue hover:text-blue-light mb-4">
@@ -38,7 +79,7 @@ const Login: React.FC = () => {
 
     const formContent = (
         <FormContainer title="Login" actionSection={actionSection}>
-            <form>
+            <form onSubmit={handleLogin}>
                 {formFields}
             </form>
         </FormContainer>
@@ -52,7 +93,7 @@ const Login: React.FC = () => {
         </div>
     );
 
-    return <VerticalPageLayout leftComponent={formContent} rightComponent={rightSideContent}/>;
+    return <VerticalPageLayout leftComponent={formContent} rightComponent={rightSideContent}/>
 };
 
 export default Login;

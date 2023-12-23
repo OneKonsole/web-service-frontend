@@ -12,6 +12,7 @@ import orderIcon from "@assets/icons/order.svg";
 import logofullIcon from "@assets/logos/logo-full.svg";
 import logoshort from "@assets/logos/logo-short.svg";
 import {useSidebarContext} from "@components/layout/SideBarContext.tsx";
+import {startAutoRefreshToken} from "@utils/runWorkers.ts";
 
 type MenuItemProps = {
     link: string,
@@ -53,7 +54,7 @@ const MenuItem: React.FC<MenuItemProps> = ({link, imgSrc, imgAlt, text, bonusCla
  * SideBar component is used to render the side bar
  */
 const SideBar: React.FC = () => {
-
+    startAutoRefreshToken();
     const {collapsed, toggleCollapsed} = useSidebarContext();
 
     // Fonction pour basculer l'état de rétractabilité
