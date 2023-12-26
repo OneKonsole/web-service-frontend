@@ -9,6 +9,7 @@ import defaultAvatar from "@assets/icons/default-avatar.svg";
 const Account: React.FC = () => {
 
     const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+    console.log(selectedFile);
 
     // Handler for file selection or drop
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

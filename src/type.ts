@@ -44,10 +44,11 @@ export type BillingInfo = {
 }
 
 export type FixedPrices = {
-    minimum: number;
+    basic: number;
+    ImgStoragePrice_Unit: number;
+    MonitoringOption: number;
+    MonitoringStoragePrice_Unit: number;
     alertingOption: number;
-    logUnitPrice: number;
-    storageUnitPrice: number;
 }
 
 export type PaymentInstance = {
@@ -157,4 +158,13 @@ export enum ControlPlaneStatus {
     Terminating = 'Terminating',
     ContainerCreating = 'ContainerCreating',
     Error = 'Error',
+}
+
+export enum ClusterStatus {
+    Provisioning = 'Provisioning',
+    CertificateAuthorityRotating = 'CertificateAuthorityRotating',
+    Upgrading = 'Upgrading',
+    Migrating = 'Migrating',
+    Ready = 'Ready',
+    NotReady = 'NotReady',
 }

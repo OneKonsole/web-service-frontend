@@ -32,10 +32,10 @@ export const billingDetailsStr = (paymentInstance: PaymentInstance): string | un
         return undefined;
     }
 
-    return `Fixed Price : ${currency} ${fixedPrices.minimum}
+    return `Fixed Price : ${currency} ${fixedPrices.basic}
 Storage :
   - Capacity : ${paymentInstance.invoiceDetails.storageCapacity} Go
-  - Price : ${currency} ${fixedPrices.storageUnitPrice}/Go
+  - Price : ${currency} ${fixedPrices.ImgStoragePrice_Unit}/Go
 Options :
 - Alerting : ${currency} ${fixedPrices.alertingOption}
 - Monitoring :

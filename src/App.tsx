@@ -16,5 +16,4 @@ const App = () => {
         </SidebarProvider>
     );
 };
-
 export default App;

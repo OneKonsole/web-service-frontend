@@ -2,10 +2,11 @@ import {AcceptedCurrency, BillingInfo, FixedPrices, PayPalInfo, PostalAddress} f
 
 
 const prices: FixedPrices = {
-    minimum: 20,
-    alertingOption: 50,
-    logUnitPrice: 0.002,
-    storageUnitPrice: 1,
+    basic: 20,
+    ImgStoragePrice_Unit: 1,
+    MonitoringOption: 5,
+    MonitoringStoragePrice_Unit: 1,
+    alertingOption: 1,
 };
 
 let billingInfo: BillingInfo = {
@@ -82,11 +83,11 @@ let billingInfo: BillingInfo = {
 /**
  * Return the static prices
  */
-export const getPrices = (): FixedPrices | undefined => {
-    // TODO : get the prices from the backend
-    return prices;
+export const getPrices = async (): Promise<FixedPrices | undefined> => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(prices), 500);
+    });
 }
-
 
 /**
  * Return the billing address of the user
@@ -145,3 +146,20 @@ export const updateUserBillingAddress = async (adr: PostalAddress): Promise<bool
         });
     }
 }
+
+export const createOrderOnServer = async (amount : number, currency : string) : Promise <string> => {
+    // TODO : create the order on the backend
+    console.log("amount : " + amount + " currency : " + currency);
+    return new Promise((resolve) => {
+        setTimeout(() => resolve("1A2B3C4D5E"), 1000);
+    });
+}
+
+export const confirmOrderPayment = async (orderId : string) : Promise <boolean> => {
+    // TODO : confirm the payment on the backend
+    console.log("orderId : " + orderId);
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(true), 1000);
+    });
+}
+

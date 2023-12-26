@@ -1,4 +1,4 @@
-import {Cluster} from "@/type.ts";
+import {Cluster, ControlPlaneStatus} from "@/type.ts";
 
 
 const clusters: Cluster[] = [
@@ -10,21 +10,21 @@ const clusters: Cluster[] = [
         controlPlaneElements: [
             {
                 name: "etcd",
-                status: "Running",
+                status: ControlPlaneStatus.Running,
                 replicas: 1,
                 cpu: 200,
                 memory: 300,
             },
             {
                 name: "api",
-                status: "Failed",
+                status: ControlPlaneStatus.Failed,
                 replicas: 6,
                 cpu: 500,
                 memory: 400,
             },
             {
                 name: "scheduler",
-                status: "Pending",
+                status: ControlPlaneStatus.Pending,
                 replicas: 7,
                 cpu: 800,
                 memory: 900,
@@ -56,21 +56,21 @@ const clusters: Cluster[] = [
         controlPlaneElements: [
             {
                 name: "etcd",
-                status: "Running",
+                status: ControlPlaneStatus.Running,
                 replicas: 1,
                 cpu: 200,
                 memory: 300,
             },
             {
                 name: "api",
-                status: "Failed",
+                status: ControlPlaneStatus.Failed,
                 replicas: 6,
                 cpu: 500,
                 memory: 400,
             },
             {
                 name: "scheduler",
-                status: "Pending",
+                status: ControlPlaneStatus.Pending,
                 replicas: 7,
                 cpu: 800,
                 memory: 900,

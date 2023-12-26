@@ -59,11 +59,6 @@ const Billing: React.FC = () => {
                         <div className="flex flex-col w-1/3 p-5 border-l-2 border-gray h-auto">
 
                             <PaymentMethod
-                                method="Card"
-                                cardInfo={billingInfo ? billingInfo?.cardInfo : undefined}
-                            />
-
-                            <PaymentMethod
                                 method="PayPal"
                                 payPalInfo={billingInfo ? billingInfo?.payPalInfo : undefined}
                             />
