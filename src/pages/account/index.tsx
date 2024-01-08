@@ -7,11 +7,12 @@ import {InputType, Option, UserInfo} from "@/type.ts";
 import defaultAvatar from "@assets/icons/default-avatar.svg";
 import {useAuth} from "@context/AuthContext.tsx";
 import {getUserInfo, updateUserInfo} from "@utils/auth.ts";
+import { File } from "buffer";
 
 const Account: React.FC = () => {
 
     const {token} = useAuth();
-    const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+    const [, setSelectedFile] = React.useState<File | null>(null);
     const [id, setId] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
