@@ -78,8 +78,6 @@ const updateUserInfo = async (token: string, data: never) => {
         mode: 'cors'
     }
 
-    console.log("Data : " + JSON.stringify(data))
-
     return request(API_ROUTES.UPDATE_USER_INFO + data.id, options)
         .then(data => {
             return data
@@ -99,7 +97,6 @@ const updateUserInfo = async (token: string, data: never) => {
                 data: err
             } as HttpMessage
         })
-
 }
 
 type TokenProps = {
@@ -150,6 +147,48 @@ const login = async ({username, password}: TokenProps): Promise<HttpMessage> => 
             console.log(err)
             return {
                 message: "Login failed",
+                code: 500,
+                data: err
+            } as HttpMessage
+        })
+}
+
+type registerUserInfo = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    company: string,
+    role: string,
+    country: string,
+    password: string
+}
+
+const register = async (data: registerUserInfo): Promise<HttpMessage> => {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        mode: 'cors'
+    }
+
+    return request(API_ROUTES.REGISTER_USER, options)
+        .then(data => {
+            console.log('REGISTER : ', data)
+            return {
+                message: "Register successful",
+                code: 200,
+                data: {
+                    token: data.data.token,
+                    refresh_token: data.data.refreshToken,
+                } as TokenResponse
+            } as HttpMessage
+        })
+        .catch(err => {
+            return {
+                message: "Get user info failed",
                 code: 500,
                 data: err
             } as HttpMessage
@@ -220,4 +259,4 @@ const request = async (url, options) => {
         })
 }
 
-export {login, logout, getUserInfo, callRefreshToken, updateUserInfo}
+export {login, logout, getUserInfo, callRefreshToken, updateUserInfo, register}

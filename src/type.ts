@@ -106,6 +106,7 @@ export enum InputType {
     month = "month",
     week = "week",
     select = "select",
+    phone = "phone"
 }
 
 export type Option = {

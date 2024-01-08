@@ -21,7 +21,6 @@ const Login: React.FC = () => {
 
     const handleLogin = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-
         try {
             login({
                 username,
