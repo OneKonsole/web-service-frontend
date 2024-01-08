@@ -39,6 +39,7 @@ const Account: React.FC = () => {
                 console.log(er)
             })
     }, [token]);
+    const [, setSelectedFile] = React.useState<File | null>(null);
 
     // Handler for file selection or drop
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
