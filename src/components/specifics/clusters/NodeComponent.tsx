@@ -25,7 +25,17 @@ const NodeComponent: React.FC<Props> = ({node, isLast}: Props) => {
                     Role : {node.role}
                 </label>
                 <label>
-                    {node.isReady ? 'Ready' : 'Not Ready'}
+                    {node.isReady ? (
+                        <div className="flex flex-row items-center">
+                            <label className="mr-2"> Ready </label>
+                            <div className="rounded-full p-1 mr-2 bg-green"/>
+                        </div>
+                    ) : (
+                        <div className="flex flex-row items-center">
+                            <label className="mr-2"> Not ready </label>
+                            <div className="rounded-full p-1 mr-2 bg-red"/>
+                        </div>
+                    )}
                 </label>
             </div>
         </div>

@@ -1,42 +1,65 @@
 import React from "react";
-import ControlPlaneStatus from "@components/specifics/clusters/StatusComponent.tsx";
-import {ControlPlaneElement} from "@/type.ts";
+import {ControlPlane, ControlPlaneElement} from "@/type.ts";
 
-type Props = {
-    controlPlane: ControlPlaneElement;
+type ControlPlaneComponentProps = {
+    controlPlane: ControlPlane;
     isLast: boolean;
 
 }
-
 /**
  * Component to display a control plane instance in the cluster details
  *
  * @param controlPlane the control plane instance
  * @param isLast if the control plane is the last one
  */
-const ControlPlaneComponent: React.FC<Props> = ({controlPlane, isLast}: Props) => {
+const ControlPlaneComponent: React.FC<ControlPlaneComponentProps> = ({
+                                                                         controlPlane,
+                                                                         isLast
+                                                                     }: ControlPlaneComponentProps) => {
     return (
         <div className={`flex flex-col text-start text-sm px-4 py-3 ${!isLast ? 'border-b-[1px] border-gray' : ''}`}>
 
-            <div className="flex flex-row items-center justify-between">
-                <ControlPlaneStatus status={controlPlane.status}/>
-                <label className="italic mr-1 font-bold">
-                    {controlPlane.name}
-                </label>
-            </div>
-
-            <div className="flex flex-row items-center justify-between">
-                <label className="flex text-sm">
-                    CPU: {controlPlane.cpu} m
-                </label>
-                <label>
-                    Memory: {controlPlane.memory} Mi
-                </label>
-            </div>
-            <label className='flex justify-end text-end'>
-                Replicas : {controlPlane.replicas}
-            </label>
+            <ControlPlaneInstance ctrlPlaneElement={controlPlane.Connectivity}/>
+            <ControlPlaneInstance ctrlPlaneElement={controlPlane.KubeControllerManager}/>
+            <ControlPlaneInstance ctrlPlaneElement={controlPlane.KubeApiServer}/>
+            <ControlPlaneInstance ctrlPlaneElement={controlPlane.KubeScheduler}/>
         </div>
     );
 }
+
+type ControlPlaneInstanceProps = {
+    ctrlPlaneElement: ControlPlaneElement;
+}
+
+/**
+ * Component to display a control plane instance in the cluster details
+ *
+ * @param ctrlPlaneElement the control plane instance
+ */
+const ControlPlaneInstance = ({ctrlPlaneElement}: ControlPlaneInstanceProps) => {
+    return (
+        <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between">
+                <label className="italic mr-1 font-bold">
+                    {ctrlPlaneElement.name}
+                </label>
+            </div>
+            <div className="grid grid-cols-2 grid-rows-1 text-sm">
+                <div className="flex flex-row items-center justify-end">
+                    <label className="mr-1">
+                        {ctrlPlaneElement.readyNb}
+                    </label>
+                    <div className="rounded-full p-1 mr-2 bg-green"/>
+                </div>
+                <div className="flex flex-row items-center justify-end">
+                    <label className="mr-1">
+                        {ctrlPlaneElement.DesiredNumberScheduled}
+                    </label>
+                    <div className="rounded-full p-1 bg-yellow"/>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default ControlPlaneComponent;
