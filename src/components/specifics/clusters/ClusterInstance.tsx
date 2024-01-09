@@ -67,8 +67,9 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
                             </label>
 
                             <div className="flex flex-col text-start mt-5 pr-2 border-r-[1px] border-gray">
-                                {cluster.controlPlaneElements.map((controlPlane, index) => {
-                                    const isLast = index === cluster.controlPlaneElements.length - 1;
+                                <label className="text-xs font-bold text-end pr-4"> Ready </label>
+                                {cluster.controlPlanes.map((controlPlane, index) => {
+                                    const isLast = index === cluster.controlPlanes.length - 1;
                                     return <ControlPlaneComponent key={index} controlPlane={controlPlane}
                                                                   isLast={isLast}/>
                                 })}

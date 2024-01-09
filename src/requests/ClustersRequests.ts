@@ -1,96 +1,164 @@
-import {Cluster} from "@/type.ts";
+import {Cluster, ClusterStatus} from "@/type.ts";
 
 
 const clusters: Cluster[] = [
     {
         name: "Cluster 1",
-        status: "Running",
+        status: ClusterStatus.Ready,
         kubeVersion: "1.18.0",
         orderID: "123456789",
-        controlPlaneElements: [
+        controlPlanes: [
             {
-                name: "etcd",
-                status: "Running",
-                replicas: 1,
-                cpu: 200,
-                memory: 300,
+                Connectivity: {
+                    name: "Connectivity",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeScheduler: {
+                    name: "KubeScheduler",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+                KubeApiServer: {
+                    name: "KubeApiServer",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeControllerManager: {
+                    name: "KubeControllerManager",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
             },
             {
-                name: "api",
-                status: "Failed",
-                replicas: 6,
-                cpu: 500,
-                memory: 400,
-            },
-            {
-                name: "scheduler",
-                status: "Pending",
-                replicas: 7,
-                cpu: 800,
-                memory: 900,
-            },
+                Connectivity: {
+                    name: "Connectivity",
+                    readyNb: 10,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeScheduler: {
+                    name: "KubeScheduler",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+                KubeApiServer: {
+                    name: "KubeApiServer",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeControllerManager: {
+                    name: "KubeControllerManager",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+            }
         ],
         nodes: [
             {
                 name: "node1",
                 isReady: true,
-                role: "worker",
+                role: ["worker"],
             },
             {
                 name: "node2",
                 isReady: false,
-                role: "worker",
+                role: ["worker"],
             },
             {
                 name: "node3",
                 isReady: true,
-                role: "worker",
+                role: ["worker"],
             },
         ],
     },
     {
         name: "Cluster 2",
-        status: "Running",
+        status: ClusterStatus.NotReady,
         kubeVersion: "1.18.0",
         orderID: "123456789",
-        controlPlaneElements: [
+        controlPlanes: [
             {
-                name: "etcd",
-                status: "Running",
-                replicas: 1,
-                cpu: 200,
-                memory: 300,
+                Connectivity: {
+                    name: "Connectivity",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeScheduler: {
+                    name: "KubeScheduler",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+                KubeApiServer: {
+                    name: "KubeApiServer",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeControllerManager: {
+                    name: "KubeControllerManager",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
             },
             {
-                name: "api",
-                status: "Failed",
-                replicas: 6,
-                cpu: 500,
-                memory: 400,
+                Connectivity: {
+                    name: "Connectivity",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeScheduler: {
+                    name: "KubeScheduler",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+                KubeApiServer: {
+                    name: "KubeApiServer",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeControllerManager: {
+                    name: "KubeControllerManager",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
             },
             {
-                name: "scheduler",
-                status: "Pending",
-                replicas: 7,
-                cpu: 800,
-                memory: 900,
-            },
+                Connectivity: {
+                    name: "Connectivity",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeScheduler: {
+                    name: "KubeScheduler",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+                KubeApiServer: {
+                    name: "KubeApiServer",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 0,
+                },
+                KubeControllerManager: {
+                    name: "KubeControllerManager",
+                    readyNb: 1,
+                    DesiredNumberScheduled: 1,
+                },
+            }
         ],
         nodes: [
             {
                 name: "node1",
                 isReady: true,
-                role: "worker",
+                role: ["worker"],
             },
             {
                 name: "node2",
                 isReady: false,
-                role: "worker",
+                role: ["worker"],
             },
             {
                 name: "node3",
                 isReady: true,
-                role: "worker",
+                role: ["worker"],
             },
         ],
     }

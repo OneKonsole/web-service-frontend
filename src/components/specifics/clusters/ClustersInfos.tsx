@@ -11,10 +11,10 @@ type Props = {
 const ClusterInfos: React.FC<Props> = ({cluster}: Props) => {
     return (
         <div className="flex flex-col text-start">
-            <label className="text-xs">
+            <label className="text-sm">
                 Kube version: {cluster.kubeVersion}
             </label>
-            <label className="text-xs">
+            <label className="text-sm">
                 Order ID: {cluster.orderID}
             </label>
         </div>

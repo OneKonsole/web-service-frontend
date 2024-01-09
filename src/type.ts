@@ -131,30 +131,33 @@ export type Cluster = {
     status: string;
     kubeVersion: string;
     orderID: string;
-    controlPlaneElements: ControlPlaneElement[];
+    controlPlanes: ControlPlane[];
     nodes: NodeElement[];
 
 }
+export type ControlPlane = {
+    Connectivity: ControlPlaneElement;
+    KubeScheduler: ControlPlaneElement;
+    KubeApiServer: ControlPlaneElement;
+    KubeControllerManager: ControlPlaneElement;
+}
+
 export type ControlPlaneElement = {
     name: string,
-    status: ControlPlaneStatus,
-    replicas: number,
-    cpu: number,
-    memory: number,
+    readyNb: number,
+    DesiredNumberScheduled: number,
 }
 export type NodeElement = {
     name: string,
     isReady: boolean,
-    role: string,
+    role: string[],
 }
 
-export enum ControlPlaneStatus {
-    Pending = 'Pending',
-    Running = 'Running',
-    Succeeded = 'Succeeded',
-    Failed = 'Failed',
-    Unknown = 'Unknown',
-    Terminating = 'Terminating',
-    ContainerCreating = 'ContainerCreating',
-    Error = 'Error',
+export enum ClusterStatus {
+    Provisioning = 'Provisioning',
+    CertificateAuthorityRotating = 'CertificateAuthorityRotating',
+    Upgrading = 'Upgrading',
+    Migrating = 'Migrating',
+    Ready = 'Ready',
+    NotReady = 'NotReady',
 }
