@@ -1,5 +1,5 @@
-import {ControlPlaneStatus} from "@/type.ts";
 import React from "react";
+import {ClusterStatus} from "@/type.ts";
 
 type Props = {
     status: string,
@@ -16,20 +16,18 @@ const StatusComponent: React.FC<Props> = ({status}: Props) => {
      */
     const renderStatusClass = () => {
         switch (status) {
-            case ControlPlaneStatus.Succeeded:
-            case ControlPlaneStatus.Running:
+            case ClusterStatus.Ready:
                 return "bg-green";
 
-            case ControlPlaneStatus.Pending:
-            case ControlPlaneStatus.Terminating:
-            case ControlPlaneStatus.ContainerCreating:
+            case ClusterStatus.Migrating:
+            case ClusterStatus.Upgrading:
+            case ClusterStatus.Provisioning:
+            case ClusterStatus.CertificateAuthorityRotating:
                 return "bg-yellow";
 
-            case ControlPlaneStatus.Failed:
-            case ControlPlaneStatus.Error:
+            case ClusterStatus.NotReady:
                 return "bg-red";
 
-            case ControlPlaneStatus.Unknown:
             default:
                 return "bg-gray";
         }
