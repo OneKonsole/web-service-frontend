@@ -173,3 +173,15 @@ export const getClustersList = async (): Promise<Cluster[] | undefined> => {
         setTimeout(() => resolve(clusters), 500);
     });
 }
+
+export const getKubeConfig = async (clusterName: string): Promise<string> => {
+
+    // TODO : get the kubeconfig from the backend
+    const yamlContent = "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: data\n    server: https://cluster-0.onekonsole.emetral.fr:32762\n  name: cluster-0\ncontexts:\n- context:\n    cluster: cluster-0\n    user: kubernetes-admin\n  name: kubernetes-admin@cluster-0\ncurrent-context: kubernetes-admin@cluster-0\nkind: Config\npreferences: {}\nusers:\n- name: kubernetes-admin\n  user:\n    client-certificate-data: data\n    client-key-data: data\n";
+    // GET /{clientName}/{clusterName}/kubeconfig
+    console.log("getKubeConfig", clusterName);
+
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(yamlContent), 500);
+    });
+}
