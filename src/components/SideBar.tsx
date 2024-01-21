@@ -54,7 +54,7 @@ const MenuItem: React.FC<MenuItemProps> = ({link, imgSrc, imgAlt, text, bonusCla
  * SideBar component is used to render the side bar
  */
 const SideBar: React.FC = () => {
-    startAutoRefreshToken();
+    //startAutoRefreshToken();
     const {collapsed, toggleCollapsed} = useSidebarContext();
 
     // Fonction pour basculer l'état de rétractabilité
@@ -65,7 +65,7 @@ const SideBar: React.FC = () => {
     const sidebarClass = collapsed ? "w-16" : "w-64";
 
     const midMenuItems = [
-        {link: '/menus/monitor', imgSrc: monitorIcon, imgAlt: 'Monitor', text: 'Monitor'},
+        {link: '/monitoring', imgSrc: monitorIcon, imgAlt: 'Monitoring', text: 'Monitoring'},
         {link: '/clusters', imgSrc: clusterIcon, imgAlt: 'Cluster', text: 'Cluster'},
         {link: '/billing', imgSrc: billingIcon, imgAlt: 'Billing', text: 'Billing'},
         {link: '/download', imgSrc: downloadIcon, imgAlt: 'Download', text: 'Download'},
