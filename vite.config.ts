@@ -42,6 +42,15 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/logout\//, ''),
             },
+            '/prometheus-api/': {
+                target: 'http://mimir.onekonsole.emetral.fr',
+                changeOrigin: true,
+                secure: false,
+                ssl: false,
+                rewrite: (path) => path.replace(/^\/prometheus-api\//, ''),
+                protocolRewrite: 'http',
+                followRedirects: true,
+            },
         },
     }
 })
