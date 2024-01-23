@@ -28,13 +28,13 @@ const PaymentHistory: React.FC<Props> = ({PaymentHistory}: Props) => {
                 <label className="col-span-1 text-sm text-gray-dark font-bold">
                     Status
                 </label>
-                <label className="col-span-2 text-sm text-gray-dark font-bold">
+                <label className="col-span-3 text-sm text-gray-dark font-bold">
                     Recipient
                 </label>
                 <label className="col-span-1 text-sm text-gray-dark font-bold">
                     Date
                 </label>
-                <label className="col-span-2 text-sm text-gray-dark font-bold">
+                <label className="col-span-1 text-sm text-gray-dark font-bold">
                     Payment method
                 </label>
                 <label className="col-span-1 text-sm text-gray-dark font-bold">
@@ -50,7 +50,7 @@ const PaymentHistory: React.FC<Props> = ({PaymentHistory}: Props) => {
             ) : (
                 PaymentHistory.map((payment, index) => (
                     <PaymentHistoryInstance
-                        key={payment.invoiceDetails.invoiceId}
+                        key={payment.invoiceDetails.order_id}
                         index={index}
                         paymentInstance={payment}
                     />

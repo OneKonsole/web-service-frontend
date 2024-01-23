@@ -9,8 +9,10 @@ type AuthContextType = {
 export const AuthContext = createContext<AuthContextType>({
     token: null,
     refreshToken: null,
-    setToken: () => {},
-    setRefreshToken: () => {},
+    setToken: () => {
+    },
+    setRefreshToken: () => {
+    },
 });
 
 export const useAuth = () => useContext(AuthContext);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { logout } from "@utils/auth.ts";
-import { useAuth } from "@context/AuthContext.tsx";
+import { useAuth } from "@components/common/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
 import {stopAutoRefreshToken} from "@utils/runWorkers.ts";
 

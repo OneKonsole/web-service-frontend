@@ -5,11 +5,11 @@ import NodeComponent from "@components/specifics/clusters/NodeComponent.tsx";
 import ClusterInfos from "@components/specifics/clusters/ClustersInfos.tsx";
 import {Cluster} from "@/type.ts";
 import CloseButton from "@components/specifics/clusters/CloseButton.tsx";
-import {getKubeConfig} from "@/requests/ClustersRequests.ts";
+import {getKubeConfig} from "@utils/requests/ClustersRequests.ts";
 import DownloadIcon from "@assets/icons/download.svg";
 import ClipBoardIcon from "@assets/icons/clipboard.svg";
 import CheckIcon from "@assets/icons/check.svg";
-import {useAuth} from "@context/AuthContext.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
 import {jwtDecode} from "jwt-decode";
 
 type Props = {
@@ -23,7 +23,7 @@ type Props = {
 const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
     const [showDetails, setShowDetails] = React.useState(false);
     const [showHelper, setShowHelper] = React.useState(false);
-    const commandToCopy = `kubeadm token create --print-join-command --config=${cluster.name}_kubeConfig.yaml`;
+    const commandToCopy = `kubeadm token create --print-join-command --kubeconfig=${cluster.name}_kubeConfig.yaml`;
     const [isCommandCopied, setIsCommandCopied] = React.useState(false);
 
     const [userId, setUserId] = useState<string>();
@@ -43,10 +43,28 @@ const ClusterInstance: React.FC<Props> = ({cluster}: Props) => {
         setShowHelper(false);
     }
     const handleCopyCommand = () => {
-        navigator.clipboard.writeText(commandToCopy).then(() =>
-            setIsCommandCopied(true)
-        );
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(commandToCopy).then(() => {
+                setIsCommandCopied(true);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = commandToCopy;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                setIsCommandCopied(successful);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
     };
+
 
     useEffect(() => {
         if (isCommandCopied) {

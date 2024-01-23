@@ -1,5 +1,5 @@
 import React from "react";
-import SideBar from "@components/SideBar.tsx";
+import SideBar from "@components/common/SideBar.tsx";
 
 /**
  * Props interface for the PanelLayout component

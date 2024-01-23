@@ -3,7 +3,7 @@ import {useRoutes} from "react-router-dom";
 
 import routes from '~react-pages';
 import {SidebarProvider} from "@components/layout/SideBarContext.tsx";
-import LoadingPage from "@components/LoadingPage.tsx";
+import LoadingPage from "@components/common/LoadingPage.tsx";
 
 const App = () => {
     const elements = useRoutes(routes);

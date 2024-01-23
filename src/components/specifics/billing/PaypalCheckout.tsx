@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {PayPalButtons, PayPalScriptProvider} from '@paypal/react-paypal-js';
-import {confirmOrder, createOrder} from "@/requests/billingRequests.js";
+import {confirmOrder, createOrder} from "@utils/requests/billingRequests.js";
 import {FixedPrices, OrderInfos} from "@/type.ts";
-import {useAuth} from "@context/AuthContext.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
 
 const initialOptions = {
     clientId: "AQaC8NCUwYIr1c9KY_7-qWf6JpBaUwaJ6ncFqFsJbq_89gviTwvOAPAgbyWpLuMHClr0zwgLPbbMSG5h",
