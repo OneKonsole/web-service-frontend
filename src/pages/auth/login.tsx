@@ -6,8 +6,8 @@ import Button from "@components/inputs/Button.tsx";
 import VerticalPageLayout from "@components/layout/VerticalPageLayout.tsx";
 import {InputType} from "@/type.ts";
 import {login} from "@utils/auth.ts";
-import {useAuth} from "@context/AuthContext.tsx";
-import {startAutoRefreshToken, stopAutoRefreshToken} from "@utils/runWorkers.ts";
+import {useAuth} from "@components/common/AuthContext.tsx";
+import {stopAutoRefreshToken} from "@utils/runWorkers.ts";
 
 /**
  * Login component is used to render the login page
@@ -19,7 +19,9 @@ const Login: React.FC = () => {
     const [error, setError] = useState("");
     const {setToken, setRefreshToken} = useAuth();
 
-    const handleLogin = async (event: { preventDefault: () => void; }) => {
+    const handleLogin = async (event: {
+        preventDefault: () => void;
+    }) => {
         event.preventDefault();
         try {
             login({

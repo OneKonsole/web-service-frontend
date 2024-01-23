@@ -42,6 +42,11 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/billing-api\//, ''),
             },
+            '/order-api/': {
+                target: 'http://order.onekonsole.emetral.fr',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/order-api\//, ''),
+            },
             '/prometheus-api/': {
                 target: 'http://mimir.onekonsole.emetral.fr',
                 changeOrigin: true,
@@ -55,7 +60,13 @@ export default defineConfig({
                 target: 'http://cluster-management.onekonsole.emetral.fr',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/clusters-api\//, ''),
-            },
+            }
         },
+        watch: {
+            usePolling: true
+        },
+        host: true,
+        strictPort: true,
+        port: 80
     }
 })

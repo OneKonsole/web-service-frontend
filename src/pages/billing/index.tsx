@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
 import PaymentDisplay from "@components/specifics/billing/PaymentDisplay.tsx";
 import PaymentHistory from "@components/specifics/billing/PaymentHistory.tsx";
-import {getUserBillingDetails} from "@/requests/billingRequests.ts";
+import {getUserBillingDetails} from "@utils/requests/billingRequests.ts";
 import {BillingInfo} from "@/type.ts";
-import LoadingPage from "@components/LoadingPage.tsx";
+import LoadingPage from "@components/common/LoadingPage.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
+import {jwtDecode} from "jwt-decode";
 
 
 const Billing: React.FC = () => {
@@ -12,16 +14,24 @@ const Billing: React.FC = () => {
     const [billingInfo, setBillingInfo] = React.useState<BillingInfo>();
     const [isLoading, setIsLoading] = useState(true);
 
-    getUserBillingDetails()
-        .then((resp) => {
-            if (resp) {
-                setBillingInfo(resp);
-            }
-        }).catch((err) => {
-        console.log(err);
-    }).finally(() => {
-        setIsLoading(false);
-    });
+    const [userId, setUserId] = useState<string>();
+    const {token} = useAuth();
+    if (!userId && token) {
+        setUserId(jwtDecode(token).sub);
+    }
+
+    if (userId && token && isLoading && !billingInfo) {
+        getUserBillingDetails(token, userId)
+            .then((resp) => {
+                if (resp) {
+                    setBillingInfo(resp);
+                }
+            }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            setIsLoading(false);
+        });
+    }
 
     if (isLoading) {
         return <LoadingPage/>;

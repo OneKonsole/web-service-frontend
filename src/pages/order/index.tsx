@@ -7,9 +7,9 @@ import ToggleSwitch from "@components/inputs/ToggleSwitch.tsx";
 import RangeSlider from "@components/inputs/RangeSlider.tsx";
 import InfraSchema from "@components/inputs/InfraSchema.tsx";
 import PaypalCheckout from "@components/specifics/billing/PaypalCheckout.tsx";
-import {getPrices} from "@/requests/billingRequests.ts";
+import {getPrices} from "@utils/requests/billingRequests.ts";
 import CartIcon from "@assets/icons/cart.svg";
-import {useAuth} from "@context/AuthContext.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
 import {jwtDecode} from "jwt-decode";
 
 const Order: React.FC = () => {

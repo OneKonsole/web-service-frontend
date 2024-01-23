@@ -1,8 +1,7 @@
 import React, {useContext, useEffect} from 'react';
-import {AuthContext} from '@/context/AuthContext';
+import {AuthContext} from '@components/common/AuthContext.tsx';
 
 export const AuthProvider: React.FC = ({children}) => {
-    const {token, refreshToken} = useContext(AuthContext);
     // Load tokens synchronously during initial state setup
     const loadInitialTokens = () => {
         try {

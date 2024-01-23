@@ -1,5 +1,3 @@
-
-
 export async function getCPUUsage() {
     let url = '/prometheus-api/prometheus/api/v1/query_range?query=(instance:node_memory_utilisation:ratio{job="node-exporter", cluster=""})!=0';
     const headers = {
@@ -28,10 +26,8 @@ export async function getCPUUsage() {
         step: step.toString()
     });
 
-    console.log(url);
-
     try {
-        const response = await fetch(url, { headers });
+        const response = await fetch(url, {headers});
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,6 +39,7 @@ export async function getCPUUsage() {
         throw error;
     }
 }
+
 export async function getMemoryUsage() {
     let url = '/prometheus-api/prometheus/api/v1/query_range?query=((instance:node_cpu_utilisation:rate5m{job="node-exporter", cluster=""}*instance:node_num_cpu:sum{job="node-exporter", cluster=""}\n' +
         ')!=0)/scalar(sum(instance:node_num_cpu:sum{job="node-exporter", cluster=""}))';
@@ -72,10 +69,8 @@ export async function getMemoryUsage() {
         step: step.toString()
     });
 
-    console.log(url);
-
     try {
-        const response = await fetch(url, { headers });
+        const response = await fetch(url, {headers});
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useRoutes } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@components/common/AuthContext.tsx';
 import routes from '~react-pages';
 import App from "@/App.tsx";
 

@@ -63,15 +63,14 @@ export type PaymentInstance = {
 }
 
 export type InvoiceDetails = {
-    invoiceId: string;
+    order_id: string;
     amount: number;
     currency: AcceptedCurrency;
     recipient: string;
     paymentMethod: 'PayPal' | 'CreditCard';
     invoiceDate: Date;
     paidDate: Date;
-    logQuantity: number;
-    storageCapacity: number;
+    order_infos: OrderInfos;
 }
 
 export type PayPalInfo = {
@@ -89,7 +88,7 @@ export type CardInfo = {
 export type OnGoingInfo = {
     currency: AcceptedCurrency;
     actualPrice: number;
-    nextEstimatedPrice: number;
+    nextPrice: number;
     startDate: Date;
     endDate: Date;
 }
