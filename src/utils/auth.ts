@@ -1,5 +1,5 @@
 import {HttpMessage, TokenResponse} from "@/type.ts";
-import {AUTH_API_ROUTES} from "@config/AUTH_API_ROUTES.ts";
+import {AUTH_API_ROUTES} from "@utils/routes/AUTH_API_ROUTES.ts";
 
 type LogoutProps = {
     refreshToken: string,
@@ -125,7 +125,6 @@ const login = async ({username, password}: TokenProps): Promise<HttpMessage> => 
 
     return request(AUTH_API_ROUTES.LOGIN, options)
         .then(data => {
-            console.log(data)
             if (data.data.token === undefined || data.data.refreshToken === undefined || data.data.token === null || data.data.refreshToken === null) {
                 return {
                     message: "Login failed",
@@ -176,7 +175,6 @@ const register = async (data: registerUserInfo): Promise<HttpMessage> => {
 
     return request(AUTH_API_ROUTES.REGISTER_USER, options)
         .then(data => {
-            console.log('REGISTER : ', data)
             return {
                 message: "Register successful",
                 code: 200,

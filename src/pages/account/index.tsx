@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import PanelLayout from "@components/layout/PanelLayout.tsx";
 import Button from "@components/inputs/Button.tsx";
 import InputField from "@components/inputs/InputField.tsx";
-import {InputType, Option, UserInfo} from "@/type.ts";
+import {InputType, Option} from "@/type.ts";
 
 import defaultAvatar from "@assets/icons/default-avatar.svg";
-import {useAuth} from "@context/AuthContext.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
 import {getUserInfo, updateUserInfo} from "@utils/auth.ts";
-import { File } from "buffer";
+import {File} from "buffer";
 
 const Account: React.FC = () => {
 
@@ -33,8 +33,6 @@ const Account: React.FC = () => {
                 setCompany(res?.company);
                 setRole(res?.role);
                 setCountry(res?.country);
-
-                console.log("User ID : " + res.sub + " - " + id)
             })
             .catch((er) => {
                 console.log(er)
@@ -79,8 +77,6 @@ const Account: React.FC = () => {
             country: country
         }
 
-        console.log(userInfo)
-
         updateUserInfo(token, userInfo)
             .then((res) => {
                 console.log(res)
@@ -88,8 +84,6 @@ const Account: React.FC = () => {
             .catch((er) => {
                 console.log(er)
             })
-
-        console.log(userInfo)
     };
 
     return (

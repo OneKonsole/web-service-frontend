@@ -47,20 +47,28 @@ const PaymentDisplay: React.FC<Props> = ({type, onGoingInfo}: Props) => {
                 </div>
             </div>
 
-            <div className="flex flex-row items-baseline mb-2">
-                <label className="text-5xl text-dark-full font-bold mb-4">
-                    {isNext ? '~ ' : ''} {onGoingInfo?.currency} {isNext ? getPriceStringValues(onGoingInfo?.nextEstimatedPrice, 'integer') : getPriceStringValues(onGoingInfo?.actualPrice, 'integer')}
-                </label>
-                <label className="text-sm text-dark-full font-bold">
-                    ,{isNext ? getPriceStringValues(onGoingInfo?.nextEstimatedPrice, 'cents') : getPriceStringValues(onGoingInfo?.actualPrice, 'cents')}
-                </label>
-            </div>
+            {onGoingInfo ? (
+                <div>
+                    <div className="flex flex-row items-baseline mb-2">
+                        <label className="text-5xl text-dark-full font-bold mb-4">
+                            {onGoingInfo.currency} {isNext ? getPriceStringValues(onGoingInfo.nextPrice, 'integer') : getPriceStringValues(onGoingInfo.actualPrice, 'integer')}
+                        </label>
+                        <label className="text-sm text-dark-full font-bold">
+                            ,{isNext ? getPriceStringValues(onGoingInfo.nextPrice, 'cents') : getPriceStringValues(onGoingInfo.actualPrice, 'cents')}
+                        </label>
+                    </div>
 
-            <label className="text-sm text-dark-full font-bold">
-                {isNext ? 'On ' : 'Since '} {isNext ? formatDate(onGoingInfo?.endDate) : formatDate(onGoingInfo?.startDate)}
-            </label>
+                    <label className="text-sm text-dark-full font-bold">
+                        {isNext ? 'On ' : 'Since '} {isNext ? formatDate(onGoingInfo.endDate) : formatDate(onGoingInfo.startDate)}
+                    </label>
+                </div>
+
+            ) : (
+                <label className="text text-xl text-dark-full text-center font-bold mb-4">
+                    {isNext ? 'No next payment' : 'No current payment'}
+                </label>
+            )}
         </div>
     );
 }
-
 export default PaymentDisplay;

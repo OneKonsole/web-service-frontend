@@ -13,36 +13,47 @@ const Index: React.FC = () => {
     const [memoryLoading, setMemoryLoading] = React.useState(true);
 
     React.useEffect(() => {
-        getMemoryUsage().then(r => {
-                setMemoryData(r.data)
-                setMemoryLoading(false)
-            }
-        );
-        getCPUUsage().then(r => {
-            setCpuData(r.data);
-            setCpuLoading(false);
-        });
-
+        if (!memoryData && memoryLoading) {
+            getMemoryUsage().then(r => {
+                    setMemoryData(r.data)
+                    setMemoryLoading(false)
+                }
+            );
+        }
+        if (!cpuData && cpuLoading) {
+            getCPUUsage().then(r => {
+                    setCpuData(r.data)
+                    setCpuLoading(false)
+                }
+            );
+        }
     }, []);
+
+    const graphClass = "w-full px-4 py-6 mb-4 h-[300px] bg-gray-light rounded-xl";
+    const labelClass = "flex h-full font-bold text-gray-dark items-center text-center justify-center";
 
     return (
         <PanelLayout>
             <h1 className="text-2xl font-semibold text-gray-900 ml-4 my-4">Monitoring</h1>
-            <div className="flex flex-wrap -mx-2">
-                {memoryLoading ? (
-                    <p>Loading Memory Data...</p>
-                ) : (
-                    <div className="w-1/2 px-4 mb-4 h-[200px]">
+            <div className="flex flex-wrap flex-col m-4">
+                <div className={graphClass}>
+                    {memoryLoading ? (
+                        <label className={labelClass}>
+                            Loading Memory Data...
+                        </label>
+                    ) : (
                         <MemoryUtilisationGraph key={JSON.stringify(memoryData)} data={memoryData}/>
-                    </div>
-                )}
-                {cpuLoading ? (
-                    <p>Loading CPU Data...</p>
-                ) : (
-                    <div className="w-1/2 px-2 mb-4 h-[200px]">
+                    )}
+                </div>
+                <div className={graphClass}>
+                    {cpuLoading ? (
+                        <label className={labelClass}>
+                            Loading CPU Data...
+                        </label>
+                    ) : (
                         <CPUUtilisationGraph key={JSON.stringify(cpuData)} data={cpuData}/>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </PanelLayout>
 

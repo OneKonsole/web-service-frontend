@@ -12,7 +12,6 @@ import orderIcon from "@assets/icons/order.svg";
 import logofullIcon from "@assets/logos/logo-full.svg";
 import logoshort from "@assets/logos/logo-short.svg";
 import {useSidebarContext} from "@components/layout/SideBarContext.tsx";
-import {startAutoRefreshToken} from "@utils/runWorkers.ts";
 
 type MenuItemProps = {
     link: string,

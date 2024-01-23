@@ -1,11 +1,11 @@
 import PanelLayout from "@components/layout/PanelLayout.tsx";
 import React, {useState} from "react";
-import {getClustersList} from "@/requests/ClustersRequests.ts";
+import {getClustersList} from "@utils/requests/ClustersRequests.ts";
 import Button from "@components/inputs/Button.tsx";
 import {Cluster} from "@/type.ts";
 import ClusterInstance from "@components/specifics/clusters/ClusterInstance.tsx";
-import LoadingPage from "@components/LoadingPage.tsx";
-import {useAuth} from "@context/AuthContext.tsx";
+import LoadingPage from "@components/common/LoadingPage.tsx";
+import {useAuth} from "@components/common/AuthContext.tsx";
 import {jwtDecode} from "jwt-decode";
 
 /**

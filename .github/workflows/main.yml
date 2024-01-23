@@ -5,6 +5,7 @@ on:
     branches:
       - "main"
       - "feature/actions"
+      - "fix/billing-details"
 
 jobs:
   build:

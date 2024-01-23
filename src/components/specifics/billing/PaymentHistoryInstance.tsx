@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import chevronUpIcon from "@assets/icons/chevron-up.svg";
 import chevronDownIcon from "@assets/icons/chevron-down.svg";
 import {PaymentInstance} from "@/type.ts";
 import {formatDate} from "@utils/DateHelper.ts";
 import {billingDetailsStr, paymentInstanceToPdf} from "@utils/BillingHelper.ts";
+import {useAuth} from "@components/common/AuthContext.tsx";
 
 type Props = {
     index: number,
@@ -15,6 +16,15 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
 
     const [isToggled, setIsToggled] = React.useState(false);
     const [textColor, setTextColor] = React.useState("gray-dark");
+    const [billingDetails, setBillingDetails] = useState<string | undefined>(undefined);
+    const {token} = useAuth();
+
+    // set billing details
+    if (token && !billingDetails) {
+        billingDetailsStr(paymentInstance, token).then((res) => {
+            setBillingDetails(res);
+        });
+    }
 
     enum classesByStatus {
         Paid = "text-green bg-green-light",
@@ -26,25 +36,28 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
      * Download the invoice for the payment instance
      */
     const downloadInvoice = () => {
-        // Générez le blob du PDF
-        const pdfBlob = paymentInstanceToPdf(paymentInstance);
-
-        if (pdfBlob === null) {
-            alert("An error occurred while generating the invoice");
+        if (!token) {
+            alert("You must be logged in to download the invoice");
             return;
         }
 
-        // Créez un lien pour le téléchargement
-        const downloadLink = document.createElement('a');
-        downloadLink.href = URL.createObjectURL(pdfBlob);
-        downloadLink.download = `Invoice-${paymentInstance.invoiceDetails.invoiceId}.pdf`;
+        paymentInstanceToPdf(paymentInstance, token).then((pdfBlob) => {
+            if (pdfBlob === null) {
+                alert("An error occurred while generating the invoice");
+                return;
+            }
+            // Créez un lien pour le téléchargement
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(pdfBlob);
+            downloadLink.download = `Invoice-${paymentInstance.invoiceDetails.order_id}.pdf`;
 
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
 
-        // Nettoyez l'URL créée
-        URL.revokeObjectURL(downloadLink.href);
+            // Nettoyez l'URL créée
+            URL.revokeObjectURL(downloadLink.href);
+        });
     }
 
     useEffect(() => {
@@ -67,7 +80,7 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
                     </label>
                 </div>
 
-                <label className={`col-span-2 text-sm text-${textColor}`}>
+                <label className={`col-span-3 text-sm text-${textColor}`}>
                     {paymentInstance.invoiceDetails.recipient}
                 </label>
 
@@ -75,7 +88,7 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
                     {paymentInstance.invoiceDetails.invoiceDate.toLocaleDateString()}
                 </label>
 
-                <label className={`col-span-2 text-sm text-${textColor}`}>
+                <label className={`col-span-1 text-sm text-${textColor}`}>
                     {paymentInstance.invoiceDetails.paymentMethod}
                 </label>
 
@@ -115,7 +128,7 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
                         Details
                     </label>
                     <pre className={`text-sm text-gray-dark text-left bg-gray-light rounded-xl p-2 mr-6`}>
-                        {billingDetailsStr(paymentInstance)}
+                        {(token && paymentInstance.invoiceDetails.order_infos) ? (billingDetails ? billingDetails : "No details") : "Unavailable"}
                     </pre>
                 </div>
 
@@ -130,7 +143,7 @@ const PaymentHistoryInstance: React.FC<Props> = ({paymentInstance, index}: Props
                         ID number
                     </label>
                     <label className={`text-md font-bold text-gray-dark text-left`}>
-                        {paymentInstance.invoiceDetails.invoiceId}
+                        {paymentInstance.invoiceDetails.order_id}
                     </label>
                 </div>
 

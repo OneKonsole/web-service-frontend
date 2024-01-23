@@ -72,9 +72,6 @@ const Register: React.FC = () => {
                 password: password,
                 username: email
             }
-
-            console.log(userInfo)
-
             register(userInfo)
                 .then((res) => {
                     console.log(res)
@@ -82,8 +79,6 @@ const Register: React.FC = () => {
                 .catch((er) => {
                     console.log(er)
                 })
-
-            console.log(userInfo)
         }
     };
 
